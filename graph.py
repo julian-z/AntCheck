@@ -78,8 +78,26 @@ class Graph:
         if (k in self._keys):
             return
         
-        self._map[k]
+        self._map[k] = set()
+        self._inDegree[k] = 0
         self._keys.append(k)
+
+    def removeKey(self, k) -> None:
+        """
+        Removes key from graph. Updates in degree & out degrees.
+        
+        Exceptions:
+        UnknownVertexError if k is not found in the graph
+        """
+        if not (k in self._keys):
+            raise UnknownVertexError
+
+        self._keys.remove(k)
+        self._outDegree[k] = 0
+        adjacent = self._map[k]
+        for v in adjacent:
+            self._inDegree[v] -= 1
+        adjacent.clear()
     
 
     def getEdges(self, k) -> set:
@@ -126,4 +144,12 @@ class Graph:
         Return the current number of keys (noexcept)
         """
         return len(self._keys)
+
+
+    def getKeys(self) -> list:
+        """
+        Return list of keys.
+        """
+        return list(self._keys)
+
 

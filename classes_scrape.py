@@ -13,6 +13,7 @@ import urllib.parse
 
 PETERPORTAL_BASE_URL = "https://api.peterportal.org/rest/v0/schedule/soc"
 CURRENT_TERM = "2022%20Fall"
+CACHE = dict()
 
 
 
@@ -46,6 +47,9 @@ def _get_prereq_str(url: str, courseTitle: str) -> str:
     Scrapes the prerequisite link's source code to gather
     the prerequisite classes.
     """
+    if url in CACHE.keys():
+        return CACHE[url]
+    
     try:
         # Try to get the prereq site source code
         response_prereq_get = requests.get(url)
@@ -58,6 +62,8 @@ def _get_prereq_str(url: str, courseTitle: str) -> str:
         for x in ["</td>", "</b>", "<b>", "</tr>", "<tr>"]:
             class_str = class_str.replace(x, '')
         class_str = class_str[class_str.find('"prereq">'):]
+
+        CACHE[url] = class_str
         
         return class_str
     except:
@@ -104,6 +110,9 @@ def prereq(a: str, b: str) -> bool:
     # Get prerequisites of class B
     B_courseTitle = b_data["schools"][0]["departments"][0]["courses"][0]["courseTitle"]
     prerequisite_url = b_data["schools"][0]["departments"][0]["courses"][0]["prerequisiteLink"]
+    if len(prerequisite_url) == 0:
+        return False # No prerequisites
+    
     prereq_str = _get_prereq_str(prerequisite_url, B_courseTitle)
 
     # Check if a is a prereq of b
