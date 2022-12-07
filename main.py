@@ -104,15 +104,15 @@ def run() -> None:
     class_input = input("Class: ")
     while class_input != 'DONE':
         if class_input.find(" ") != -1:
-            print(f"ERROR: Remove spaces")
+            print(f"ERROR: Remove spaces.")
         elif _valid_class(class_input):
             if class_input in class_list:
-                print(f"ERROR: Class {class_input} already added")
-                
-            class_list.append(class_input)
-            print(f"{class_input} added!")
+                print(f"ERROR: Class {class_input} already added.")
+            else:
+                class_list.append(class_input)
+                print(f"{class_input} added!")
         else:
-            print(f"ERROR: Class {class_input} not valid")
+            print(f"ERROR: Class {class_input} either is not valid or is not in the database.")
 
         class_input = input("Class: ")
 
