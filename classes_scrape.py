@@ -13,10 +13,26 @@ import urllib.parse
 
 
 PETERPORTAL_BASE_URL = "https://api.peterportal.org/rest/v0/schedule/soc"
-CURRENT_TERM = "2022%20Fall"
+PAST_5_TERMS = ["2023%20Winter", "2022%20Fall", "2022%20Spring", "2022%20Winter", "2021%20Fall"] # Most recent = priority
 CACHE_PREREQ_STRS = dict()
 CACHE_JSON = dict()
-
+SPECIAL_CHAR_DEPTS = {
+    "I&CSCI":"I%26C%20SCI", "CRM/LAW":"CRM%2FLAW",
+    "ARTHIS":"ART%20HIS", "ACENG":"AC%20ENG",
+    "ARTSTU":"ART%20STU", "BIOSCI":"BIO%20SCI",
+    "CHC/LAT":"CHC%2FLAT", "COMLIT":"COM%20LIT",
+    "DEVBIO":"DEV%20BIO", "EASIAN":"E%20ASIAN",
+    "ECOEVO":"ECO%20EVO", "EUROST":"EURO%20ST",
+    "FLM&MDA":"FLM%2FMDA", "GEN&SEX":"GEN%2FSEX",
+    "INTLST":"INTL%20ST", "LITJRN":"LIT%20JRN",
+    "MEDHUM":"MED%20HUM", "MGMTEP":"MGMT%20EP",
+    "MGMTFE":"MGMT%20FE", "MOLBIO":"MOL%20BIO",
+    "NETSYS":"NET%20SYS", "NURSCI":"NUR%20SCI",
+    "PHYSCI":"PHY%20SCI", "POLSCI":"POL%20SCI",
+    "PP&D":"PP%2FD", "PSYBEH":"PSY%20BEH",
+    "RELSTD":"REL%20STD", "SOCSCI":"SOC%20SCI",
+    "UNISTU":"UNI%20STU", "WOMNST":"WOMN%20ST"
+    }
 
 
 def _try_peter_portal(url: str) -> (bool, dict):
@@ -73,7 +89,7 @@ def _get_prereq_str(url: str, courseTitle: str) -> str:
 def prereq(a: str, b: str) -> bool:
     """
     Returns true/false if a is a prerequisite of b;
-    based on Schedule of Classes for CURRENT_TERM.
+    based on Schedule of Classes for PAST_5_TERMS.
 
     Parameters need to be in the form of: DEPARTMENT000
     - i.e. COMPSCI161
@@ -86,10 +102,8 @@ def prereq(a: str, b: str) -> bool:
             break
         
     B_department, B_courseNumber = tuple(b.split(','))
-    if B_department == "I&CSCI":
-        B_department = "I%26C%20SCI"
-    elif B_department == "CRM/LAW":
-        B_department = "CRM%2FLAW"
+    if B_department in SPECIAL_CHAR_DEPTS.keys():
+        B_department = SPECIAL_CHAR_DEPTS[B_department]
     b_data = CACHE_JSON[b] # CACHE_JSON guaranteed to have b if b is a valid course
 
     # Get prerequisites of class B
@@ -120,35 +134,35 @@ def valid_class(x: str) -> bool:
             break
         
     X_department, X_courseNumber = tuple(x.split(','))
-    if X_department == "I&CSCI":
-        X_department = "I%26C%20SCI"
-    elif X_department == "CRM/LAW":
-        X_department = "CRM%2FLAW"
-        
-    query_parameters = [
-        ("term", CURRENT_TERM),
-        ("department", X_department),
-        ("courseNumber", X_courseNumber)
-    ]
-    
-    encoded = urllib.parse.urlencode(query_parameters, safe='%')
-    url = f"{PETERPORTAL_BASE_URL}?{encoded}"
-    
-    try:
-        # Using PeterPortal
-        response_get = requests.get(url)
-        response = response_get.json()
+    if X_department in SPECIAL_CHAR_DEPTS.keys():
+        X_department = SPECIAL_CHAR_DEPTS[X_department]
 
-        # If class is invalid, json = {'schools': []}
-        if (response == {'schools': []}):
+    # Check if class has been offered in the past 5 terms
+    for TERM in PAST_5_TERMS:
+        query_parameters = [
+            ("term", TERM),
+            ("department", X_department),
+            ("courseNumber", X_courseNumber)
+        ]
+        
+        encoded = urllib.parse.urlencode(query_parameters, safe='%')
+        url = f"{PETERPORTAL_BASE_URL}?{encoded}"
+        
+        try:
+            # Using PeterPortal
+            response_get = requests.get(url)
+            response = response_get.json()
+
+            # If class is invalid for TERM, json = {'schools': []}
+            if (response != {'schools': []}):
+                CACHE_JSON[x] = response
+                return True
+        except:
             return False
-        else:
-            CACHE_JSON[x] = response
-            return True
-    except:
-        return False
-    finally:
-        response_get.close()
+        finally:
+            response_get.close()
+
+    return False
 
 
 
@@ -212,5 +226,4 @@ def valid_class(x: str) -> bool:
 ##    print( prereq("I&CSCI31", "I&CSCI32") )
 ##    print( prereq("MATH2B", "STATS67") )
 ##    print( prereq("STATS7", "COMPSCI121") )
-
 

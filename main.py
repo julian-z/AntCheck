@@ -49,10 +49,16 @@ def run() -> None:
     print("--------------------------------------------------------------")
     print("Input: Classes you intend to take")
     print("       'DONE' to finish inputting classes\n")
-    print("Note: Classes must be formatted as DEPARTMENT000")
-    print("      i.e. COMPSCI161, MATH2B")
-    print("      - If a department has spaces (I&C SCI), do not include")
-    print("      - Input department as shown on Schedule of Classes\n")
+    print("Note #1: Classes must be formatted as DEPARTMENT000")
+    print("         i.e. COMPSCI161, MATH2B")
+    print("         - If a department has spaces (I&C SCI), do not include")
+    print("         - Input department as shown on Schedule of Classes\n")
+    print("Note #2: If a class is not put in as an input, the algorithm will")
+    print("         assume you have already met the prerequisites.")
+    print("         i.e. If BIOSCI98 is not input but 97 and 99 are,")
+    print("              it will think 99 can be taken before 97.\n")
+    print("A class will be invalid if it has not been offered in the past")
+    print("5 quarters! Last update: Winter 2023\n")
     print("Questions/Bugs? Email: jzulfika@uci.edu")
     print("--------------------------------------------------------------")
 
@@ -68,7 +74,7 @@ def run() -> None:
                 class_list.append(class_input)
                 print(f"{class_input} added!")
         else:
-            print(f"ERROR: Class {class_input} either is not valid or is not in the database.")
+            print(f"ERROR: Class {class_input} either is invalid has not been offered recently.")
 
         class_input = input("Class: ")
 
