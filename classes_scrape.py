@@ -119,6 +119,48 @@ def prereq(a: str, b: str) -> bool:
     return prereq_str.find(a) != -1
 
 
+
+def valid_class(x: str) -> bool:
+    """
+    Requests from PeterPortal API in order to check for validity of class.
+    """
+    # Get URL of class X
+    for i in range(len(x)):
+        if x[i].isnumeric():
+            x = x[:i]+','+x[i:]
+            break
+    X_department, X_courseNumber = tuple(x.split(','))
+    if X_department == "I&CSCI":
+        X_department = "I%26C%20SCI"
+    elif X_department == "CRM/LAW":
+        X_department = "CRM%2FLAW"
+        
+    query_parameters = [
+        ("term", CURRENT_TERM),
+        ("department", X_department),
+        ("courseNumber", X_courseNumber)
+    ]
+    
+    encoded = urllib.parse.urlencode(query_parameters, safe='%')
+    url = f"{PETERPORTAL_BASE_URL}?{encoded}"
+    
+    try:
+        # Using PeterPortal
+        response_get = requests.get(url)
+        response = response_get.json()
+
+        # If class is invalid, json = {'schools': []}
+        if (response == {'schools': []}):
+            return False
+        else:
+            return True
+    except:
+        return False
+    finally:
+        response_get.close()
+
+
+
 ## ------------------------------------------------------------------
 ##    This section was used to experiment with scraping the pre-
 ##    requisites for each class; PeterPortal API does not support

@@ -5,56 +5,12 @@
 # A.K.A. an ordering of classes such that if taken in order,
 # prerequisites will not be violated.
 
-from classes_scrape import prereq
+# TO-DO:
+# - Implement one-line input
+# - Implement file input
+
+from classes_scrape import prereq, valid_class
 from graph import Graph
-import requests
-import urllib.parse
-
-
-PETERPORTAL_BASE_URL = "https://api.peterportal.org/rest/v0/schedule/soc"
-CURRENT_TERM = "2022%20Fall"
-
-
-
-def _valid_class(x: str) -> bool:
-    """
-    Requests from PeterPortal API in order to check for validity of class.
-    """
-    # Get URL of class X
-    for i in range(len(x)):
-        if x[i].isnumeric():
-            x = x[:i]+','+x[i:]
-            break
-    X_department, X_courseNumber = tuple(x.split(','))
-    if X_department == "I&CSCI":
-        X_department = "I%26C%20SCI"
-    elif X_department == "CRM/LAW":
-        X_department = "CRM%2FLAW"
-        
-    query_parameters = [
-        ("term", CURRENT_TERM),
-        ("department", X_department),
-        ("courseNumber", X_courseNumber)
-    ]
-    
-    encoded = urllib.parse.urlencode(query_parameters, safe='%')
-    url = f"{PETERPORTAL_BASE_URL}?{encoded}"
-    
-    try:
-        # Using PeterPortal
-        response_get = requests.get(url)
-        response = response_get.json()
-
-        # If class is invalid, json = {'schools': []}
-        if (response == {'schools': []}):
-            return False
-        else:
-            return True
-    except:
-        return False
-    finally:
-        response_get.close()
-
 
 
 def _topological_sort(graph: 'Graph', nodes: list) -> None:
@@ -105,7 +61,7 @@ def run() -> None:
     while class_input != 'DONE':
         if class_input.find(" ") != -1:
             print(f"ERROR: Remove spaces.")
-        elif _valid_class(class_input):
+        elif valid_class(class_input):
             if class_input in class_list:
                 print(f"ERROR: Class {class_input} already added.")
             else:
