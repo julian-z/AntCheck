@@ -11,9 +11,11 @@
 import requests
 import urllib.parse
 
+
 PETERPORTAL_BASE_URL = "https://api.peterportal.org/rest/v0/schedule/soc"
 CURRENT_TERM = "2022%20Fall"
-CACHE = dict()
+CACHE_PREREQ_STRS = dict()
+CACHE_JSON = dict()
 
 
 
@@ -47,9 +49,6 @@ def _get_prereq_str(url: str, courseTitle: str) -> str:
     Scrapes the prerequisite link's source code to gather
     the prerequisite classes.
     """
-    if url in CACHE.keys():
-        return CACHE[url]
-    
     try:
         # Try to get the prereq site source code
         response_prereq_get = requests.get(url)
@@ -62,8 +61,6 @@ def _get_prereq_str(url: str, courseTitle: str) -> str:
         for x in ["</td>", "</b>", "<b>", "</tr>", "<tr>"]:
             class_str = class_str.replace(x, '')
         class_str = class_str[class_str.find('"prereq">'):]
-
-        CACHE[url] = class_str
         
         return class_str
     except:
@@ -81,39 +78,31 @@ def prereq(a: str, b: str) -> bool:
     Parameters need to be in the form of: DEPARTMENT000
     - i.e. COMPSCI161
     """
-    # Get URL of class B
+    # Get data of class B
+    b_og = b
     for i in range(len(b)):
         if b[i].isnumeric():
             b = b[:i]+','+b[i:]
             break
+        
     B_department, B_courseNumber = tuple(b.split(','))
     if B_department == "I&CSCI":
         B_department = "I%26C%20SCI"
     elif B_department == "CRM/LAW":
         B_department = "CRM%2FLAW"
-        
-    query_parameters = [
-        ("term", CURRENT_TERM),
-        ("department", B_department),
-        ("courseNumber", B_courseNumber)
-    ]
-    
-    encoded = urllib.parse.urlencode(query_parameters, safe='%')
-    url = f"{PETERPORTAL_BASE_URL}?{encoded}"
-
-    # Attempt to find data about class B
-    valid, b_data = _try_peter_portal(url)
-    
-    if not valid:
-        return False # Error opening course B
+    b_data = CACHE_JSON[b] # CACHE_JSON guaranteed to have b if b is a valid course
 
     # Get prerequisites of class B
     B_courseTitle = b_data["schools"][0]["departments"][0]["courses"][0]["courseTitle"]
     prerequisite_url = b_data["schools"][0]["departments"][0]["courses"][0]["prerequisiteLink"]
     if len(prerequisite_url) == 0:
         return False # No prerequisites
-    
-    prereq_str = _get_prereq_str(prerequisite_url, B_courseTitle)
+
+    if b_og in CACHE_PREREQ_STRS.keys():
+        prereq_str = CACHE_PREREQ_STRS[b_og]
+    else:
+        prereq_str = _get_prereq_str(prerequisite_url, B_courseTitle)
+        CACHE_PREREQ_STRS[b_og] = prereq_str # Cache b's prereq_str for future use
 
     # Check if a is a prereq of b
     return prereq_str.find(a) != -1
@@ -129,6 +118,7 @@ def valid_class(x: str) -> bool:
         if x[i].isnumeric():
             x = x[:i]+','+x[i:]
             break
+        
     X_department, X_courseNumber = tuple(x.split(','))
     if X_department == "I&CSCI":
         X_department = "I%26C%20SCI"
@@ -153,6 +143,7 @@ def valid_class(x: str) -> bool:
         if (response == {'schools': []}):
             return False
         else:
+            CACHE_JSON[x] = response
             return True
     except:
         return False

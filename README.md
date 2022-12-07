@@ -15,8 +15,11 @@ Directions and sample inputs are provided. Actively seeking for ways to optimize
 Each file is well-documented with summaries at the top.
 
 classes_scrape.py: Utilizes UCI's PeterPortal API & scrapes the source code of UCI's Schedule of Classes website to collect prerequisites
+
 graph.py: Hash-map adjacency list of a graph implementation
+
 general_tests.py: Unit tests for test-driven development
+
 main.py: run() function, creates a topological sort of given classes
 
 # Shortcomings
