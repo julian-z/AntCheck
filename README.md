@@ -1,15 +1,27 @@
 # ClassPlanner
 Created by Julian Zulfikar, project started on 12-6-2022.
 
-# Description
-This Class Planner takes a given set of UCI classes that you intend to take; could be in the current schoolyear or throughout your entire career.
+# Purpose
+Prerequisites can be confusing, and the goal of this project is to help students figure out the correct order in which they should enroll in their classes!
 
+The "ClassPlanner" takes a given set of UCI classes that you intend to take; could be in the current schoolyear or throughout your entire career.
+
+# How It Works
 With this set, a directed graph is initialized with edges representing courses that must be taken beforehand.
 
 A topological sort is then performed on such graph; returning a sorted order of classes that can be taken where prerequisites are not violated.
 
+The program uses UCI's PeterPortal API in order to look up the class in the database. However, the current implementation of the API does not provide a list of classes that are considered prerequisites. In order to combat this, the Schedule of Classes website's source code is scraped in order to check whether or not a given class is a prerequisite to another.
+
+# Optimizations
+You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
+
+To fight this, after every valid URL request from the API & the Schedule of Classes, we "memoize" the data, which keeps it in a cache for later use. This shortens the runtime drastically, as without it, we would have to request to check the prerequisites for every pair of classes, which would grow to be extremely slow the more classes are inputted.
+
 # How To Use
-Directions and sample inputs are provided. Actively seeking for ways to optimize user experience.
+Directions and sample input files are provided. Actively seeking for ways to optimize user experience.
+
+As of 12-8-2022, the user is able to manually input classes one-by-one, input it via CSV one-liner, or a file input (demonstrated by sample_input.txt).
 
 # Files
 Each file is well-documented with summaries at the top.
@@ -23,12 +35,14 @@ general_tests.py: Unit tests for test-driven development
 main.py: run() function, creates a topological sort of given classes
 
 # Shortcomings
-Due to the limitations of the API not having a list of prerequisite courses readily available, the prerequisites are checked via web scraping.
+Since UCI's course database isn't readily available, the program has to check the past 5 quarters to decide if it is a valid class. Though, it may be very unlikely that a class has not been offered since then & is still relevant.
 
-The source code of UCI's Schedule of Classes may not have some courses listed, which may lead to the program thinking it is not in the database.
+# Future Endeavors
+Development phase is extremely early on, as of December 2022. Looking to make as many optimizations as possible.
 
-# Current Stage of Development
-Development phase is extremely early on, as of December 2022. Looking to make as many optimizations as possible to cut down runtime.
+Our first priority is to figure out the issue of prerequisites not being input (i.e. Program assumes ICS 33 can be taken before ICS 31 if ICS 32 is not inputted), as well as implement corequisite checking.
+
+From that point on, we will look into implementing a website version for the ease of users.
 
 # Conclusion
 Open to suggestions! Email me at jzulfika@uci.edu

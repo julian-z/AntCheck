@@ -1,7 +1,3 @@
-The program assumes that any prerequisites not listed has been met.
-
-Future implementations will plan to take one-line inputs.
-
 COMPSCI161
 I&CSCI33
 I&CSCI6D
@@ -9,4 +5,3 @@ I&CSCI46
 COMPSCI122A
 I&CSCI6B
 I&CSCI45C
-DONE

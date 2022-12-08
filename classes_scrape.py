@@ -13,7 +13,11 @@ import urllib.parse
 
 
 PETERPORTAL_BASE_URL = "https://api.peterportal.org/rest/v0/schedule/soc"
-PAST_5_TERMS = ["2023%20Winter", "2022%20Fall", "2022%20Spring", "2022%20Winter", "2021%20Fall"] # Most recent = priority
+PAST_5_TERMS = [
+    "2023%20Winter", "2022%20Fall",
+    "2022%20Spring", "2022%20Winter",
+    "2021%20Fall"
+    ] # Most recent = priority
 CACHE_PREREQ_STRS = dict()
 CACHE_JSON = dict()
 SPECIAL_CHAR_DEPTS = {
@@ -23,13 +27,13 @@ SPECIAL_CHAR_DEPTS = {
     "CHC/LAT":"CHC%2FLAT", "COMLIT":"COM%20LIT",
     "DEVBIO":"DEV%20BIO", "EASIAN":"E%20ASIAN",
     "ECOEVO":"ECO%20EVO", "EUROST":"EURO%20ST",
-    "FLM&MDA":"FLM%2FMDA", "GEN&SEX":"GEN%2FSEX",
+    "FLM&MDA":"FLM%26MDA", "GEN&SEX":"GEN%26SEX",
     "INTLST":"INTL%20ST", "LITJRN":"LIT%20JRN",
     "MEDHUM":"MED%20HUM", "MGMTEP":"MGMT%20EP",
     "MGMTFE":"MGMT%20FE", "MOLBIO":"MOL%20BIO",
     "NETSYS":"NET%20SYS", "NURSCI":"NUR%20SCI",
     "PHYSCI":"PHY%20SCI", "POLSCI":"POL%20SCI",
-    "PP&D":"PP%2FD", "PSYBEH":"PSY%20BEH",
+    "PP&D":"PP%26D", "PSYBEH":"PSY%20BEH",
     "RELSTD":"REL%20STD", "SOCSCI":"SOC%20SCI",
     "UNISTU":"UNI%20STU", "WOMNST":"WOMN%20ST"
     }
