@@ -6,8 +6,12 @@ Prerequisites can be confusing, and the goal of this project is to help students
 
 The "ClassPlanner" takes a given set of UCI classes that you intend to take; could be in the current schoolyear or throughout your entire career.
 
+The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
+
+The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 122B and they input {CS 122A, CS122B}, the program would warn them of 122B's ICS 45J requirement. You'll never miss a prerequisite again!
+
 # How It Works
-With this set, a directed graph is initialized with edges representing courses that must be taken beforehand.
+The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
 
 A topological sort is then performed on such graph; returning a sorted order of classes that can be taken where prerequisites are not violated.
 
@@ -21,7 +25,7 @@ To fight this, after every valid URL request from the API & the Schedule of Clas
 # How To Use
 Directions and sample input files are provided. Actively seeking for ways to optimize user experience.
 
-As of 12-8-2022, the user is able to manually input classes one-by-one, input it via CSV one-liner, or a file input (demonstrated by sample_input.txt).
+As of 12-8-2022, in the Python Shell version, the user is able to manually input classes one-by-one, input it via CSV one-liner, or a file input (demonstrated by sample_input.txt).
 
 # Files
 Each file is well-documented with summaries at the top.
@@ -40,9 +44,7 @@ Since UCI's course database isn't readily available, the program has to check th
 # Future Endeavors
 Development phase is extremely early on, as of December 2022. Looking to make as many optimizations as possible.
 
-Our first priority is to figure out the issue of prerequisites not being input (i.e. Program assumes ICS 33 can be taken before ICS 31 if ICS 32 is not inputted), as well as implement corequisite checking.
-
-From that point on, we will look into implementing a website version for the ease of users.
+We are currently looking into implementing a website version for the ease of users.
 
 # Conclusion
 Open to suggestions! Email me at jzulfika@uci.edu

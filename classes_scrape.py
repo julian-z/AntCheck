@@ -64,7 +64,7 @@ def _try_peter_portal(url: str) -> (bool, dict):
 
 
 
-def _get_prereq_str(url: str, courseTitle: str) -> str:
+def _get_prereq_str(url: str, courseNumber: str) -> str:
     """
     Scrapes the prerequisite link's source code to gather
     the prerequisite classes.
@@ -74,13 +74,24 @@ def _get_prereq_str(url: str, courseTitle: str) -> str:
         response_prereq_get = requests.get(url)
         response_prereq = response_prereq_get.text
 
-        starting_index = response_prereq.find(courseTitle)
+        # Isolate the course
+        starting_index = response_prereq.find(f'name="{courseNumber}"')
         end_index = response_prereq.find('<td class="course" nowrap>', starting_index)
         class_str = response_prereq[starting_index:end_index]
         class_str = class_str.replace(" ", '')
+
+        # Remove as much unnecessary syntax as possible
         for x in ["</td>", "</b>", "<b>", "</tr>", "<tr>"]:
             class_str = class_str.replace(x, '')
         class_str = class_str[class_str.find('"prereq">'):]
+        class_str = class_str[class_str.find('\n')+1:]
+        class_str = class_str.replace('<br>', '')
+        class_str = class_str.replace('<b>', '')
+        if (tmp := class_str.find("</table>")) != -1:
+            class_str = class_str[:tmp]
+        class_str = class_str[:class_str.find('\n')]
+        if (tmp := class_str.find("(SCHOOLOF")) != -1:
+            class_str = class_str[:tmp]
         
         return class_str
     except:
@@ -111,7 +122,6 @@ def prereq(a: str, b: str) -> bool:
     b_data = CACHE_JSON[b] # CACHE_JSON guaranteed to have b if b is a valid course
 
     # Get prerequisites of class B
-    B_courseTitle = b_data["schools"][0]["departments"][0]["courses"][0]["courseTitle"]
     prerequisite_url = b_data["schools"][0]["departments"][0]["courses"][0]["prerequisiteLink"]
     if len(prerequisite_url) == 0:
         return False # No prerequisites
@@ -119,9 +129,9 @@ def prereq(a: str, b: str) -> bool:
     if b_og in CACHE_PREREQ_STRS.keys():
         prereq_str = CACHE_PREREQ_STRS[b_og]
     else:
-        prereq_str = _get_prereq_str(prerequisite_url, B_courseTitle)
+        prereq_str = _get_prereq_str(prerequisite_url, B_courseNumber)
         CACHE_PREREQ_STRS[b_og] = prereq_str # Cache b's prereq_str for future use
-
+    
     # Check if a is a prereq of b
     return prereq_str.find(a) != -1
 
@@ -167,6 +177,29 @@ def valid_class(x: str) -> bool:
             response_get.close()
 
     return False
+
+
+
+def check_for_unlisted_prereqs(course: str, class_list: list):
+    if course not in CACHE_PREREQ_STRS.keys():
+        return []
+    
+    prereq_str = CACHE_PREREQ_STRS[course]
+    do_not_split_OR = ["HISTORY", "KOREAN", "PORTUG"]
+    for dept in do_not_split_OR:
+        if dept in prereq_str:
+            return [] # Currently cannot handle these depts
+
+    prereq_list_before_OR = prereq_str.split("AND")
+    prereq_list = [c.split("OR") for c in prereq_list_before_OR]
+
+    for course in class_list:
+        for i in range(len(prereq_list)):
+            if any( True if c.find(course) != -1 else False for c in prereq_list[i] ):
+                prereq_list[i] = []
+    
+    prereq_list = [x for x in prereq_list if x != [] and x != ['']]
+    return prereq_list
 
 
 

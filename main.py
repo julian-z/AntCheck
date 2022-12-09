@@ -5,7 +5,7 @@
 # A.K.A. an ordering of classes such that if taken in order,
 # prerequisites will not be violated.
 
-from classes_scrape import prereq, valid_class
+from classes_scrape import prereq, valid_class, check_for_unlisted_prereqs
 from graph import Graph
 
 
@@ -17,22 +17,35 @@ def _topological_sort(graph: 'Graph', nodes: list) -> None:
     Citation: Professor Michael Shindler, ICS-46
     """
     count = 1
+    class_list = graph.getKeys()
 
     available = []
     for node in nodes:
         if graph.getInDegree(node) == 0:
             available.append(node)
 
+    warning_str = ""
     while len(available) != 0:
         u = available.pop()
         graph.removeKey(u)
 
         print(f"{count}: {u}")
         count += 1
+        unmentioned_warning = check_for_unlisted_prereqs(u, class_list)
+        if len(unmentioned_warning) > 0:
+            warning_str += "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            warning_str += f"WARNING: Unlisted Prerequisites For {u}:\n"
+            for lst in unmentioned_warning:
+                warning_str += "- "+" OR ".join(lst)+'\n'
         
         for node in nodes:
             if graph.getInDegree(node) == 0 and not (node in available):
                 available.append(node)
+
+    if warning_str != "":
+        print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+        print("Some classes may seem out of order due to these warnings:")
+        print(warning_str.rstrip('\n'))
 
 
 
@@ -47,13 +60,7 @@ def run() -> None:
     print("         i.e. COMPSCI161, MATH2B")
     print("         - If a department has spaces (I&C SCI), do not include")
     print("         - Input department as shown on Schedule of Classes\n")
-    print("Note #2: If a class is not put in as an input, the algorithm will")
-    print("         assume you have already taken it.")
-    print("         i.e. If BIOSCI98 is not input but 97 and 99 are,")
-    print("              it will think 99 can be taken before 97.")
-    print('              - We are currently working to implement an "unlisted')
-    print('                course warning" to combat this.\n')
-    print("Note #3: A class will be invalid if it has not been offered in the")
+    print("Note #2: A class will be invalid if it has not been offered in the")
     print("         past 5 quarters! Last update: Winter 2023\n")
     print("Questions/Bugs? Email: jzulfika@uci.edu")
     print("----------------------------------------------------------------------")
@@ -82,12 +89,12 @@ def run() -> None:
                     print(f"ERROR: Remove spaces.")
                 elif valid_class(class_input):
                     if class_input in class_list:
-                        print(f"ERROR: Class {class_input} already added.")
+                        print(f"ERROR: {class_input} already added.")
                     else:
                         class_list.append(class_input)
                         print(f"{class_input} added!")
                 else:
-                    print(f"ERROR: Class {class_input} either is invalid or has not been offered recently.")
+                    print(f"ERROR: {class_input} either is invalid or has not been offered recently.")
             except:
                 print(f"ERROR: {class_input} is not correctly formatted")
 
@@ -104,15 +111,15 @@ def run() -> None:
         for c in inputted_classes:
             try:
                 if c.find(" ") != -1:
-                    print(f"ERROR: Class {c} has spaces.")
+                    print(f"ERROR: {c} has spaces.")
                 elif valid_class(c):
                     if c in class_list:
-                        print(f"ERROR: Class {c} is already added. Has been skipped.")
+                        print(f"ERROR: {c} is already added. Has been skipped.")
                     else:
                         class_list.append(c)
                         print(f"{c} added!")
                 else:
-                    print(f"ERROR: Class {c} either is invalid or has not been offered recently.")
+                    print(f"ERROR: {c} either is invalid or has not been offered recently.")
             except:
                 print(f"ERROR: {c} is not correctly formatted")
     # File input
@@ -129,15 +136,15 @@ def run() -> None:
                         c = line.rstrip('\n')
                         try:
                             if c.find(" ") != -1:
-                                print(f"ERROR: Class {c} has spaces.")
+                                print(f"ERROR: {c} has spaces.")
                             elif valid_class(c):
                                 if c in class_list:
-                                    print(f"ERROR: Class {c} is already added. Has been skipped.")
+                                    print(f"ERROR: {c} is already added. Has been skipped.")
                                 else:
                                     class_list.append(c)
                                     print(f"{c} added!")
                             else:
-                                print(f"ERROR: Class {c} either is invalid or has not been offered recently.")
+                                print(f"ERROR: {c} either is invalid or has not been offered recently.")
                         except:
                             print(f"ERROR: {c} is not correctly formatted")
                         
