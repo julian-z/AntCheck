@@ -1,10 +1,10 @@
-# ClassPlanner
+# ZotPlanner
 Created by Julian Zulfikar, project started on 12-6-2022.
 
 # Purpose
 Prerequisites can be confusing, and the goal of this project is to help students figure out the correct order in which they should enroll in their classes!
 
-The "ClassPlanner" takes a given set of UCI classes that you intend to take; could be in the current schoolyear or throughout your entire career.
+ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current schoolyear or throughout your entire career.
 
 The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
 
