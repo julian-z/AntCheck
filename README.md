@@ -17,6 +17,8 @@ A topological sort is then performed on such graph; returning a sorted order of 
 
 The program uses UCI's PeterPortal API in order to look up the class in the database. However, the current implementation of the API does not provide a list of classes that are considered prerequisites. In order to combat this, the Schedule of Classes website's source code is scraped in order to check whether or not a given class is a prerequisite to another.
 
+![](https://github.com/julianzulf/ZotPlanner/blob/main/topologicalsort.gif)
+
 # Optimizations
 You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
 
