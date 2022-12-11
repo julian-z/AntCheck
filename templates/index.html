@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+<IMG src="../static/images/zotplannerlogo.png" 
+    alt="ZotPlanner"
+    height=10%
+    width=auto
+    class="center"/>
+
+    <div class="tanbg">
+        <form>
+            <div style="float:left;width:50px">
+            <select class="dropdown" data-trigger="" name="choices-single-defaul">
+                <option placeholder="">Department</option>
+                <option>AC ENG</option>
+                <option>AFAM</option>
+                <option>ANTHRO</option>
+                <option>ARABIC</option>
+                <option>ARMN</option>
+                <option>ART</option>
+                <option>ART HIS</option>
+                <option>ART STU</option>
+                <option>ARTS</option>
+                <option>ARTSHUM</option>
+                <option>ASIANAM</option>
+                <option>BANA</option>
+                <option>BIO SCI</option>
+                <option>BME</option>
+                <option>BSEMD</option>
+                <option>CBE</option>
+                <option>CBEMS</option>
+                <option>CHC/LAT</option>
+                <option>CHEM</option>
+                <option>CHINESE</option>
+                <option>CLASSIC</option>
+                <option>CLT&THY</option>
+                <option>COGS</option>
+                <option>COM LIT</option>
+                <option>COMPSCI</option>
+                <option>CRITISM</option>
+                <option>CRM/LAW</option>
+                <option>CSE</option>
+                <option>DANCE</option>
+                <option>DATA</option>
+                <option>DEV BIO</option>
+                <option>DRAMA</option>
+                <option>E ASIAN</option>
+                <option>EARTHSS</option>
+                <option>EAS</option>
+                <option>ECO EVO</option>
+                <option>ECON</option>
+                <option>ECPS</option>
+                <option>EDUC</option>
+                <option>EECS</option>
+                <option>EHS</option>
+                <option>ENGLISH</option>
+                <option>ENGR</option>
+                <option>ENGRCEE</option>
+                <option>ENGRMAE</option>
+                <option>ENGRMSE</option>
+                <option>ENVIRON</option>
+                <option>EPIDEM</option>
+                <option>EURO ST</option>
+                <option>FILMSTD</option>
+                <option>FIN</option>
+                <option>FLM&MDA</option>
+                <option>FRENCH</option>
+                <option>GDIM</option>
+                <option>GEN&SEX</option>
+                <option>GERMAN</option>
+                <option>GLBLCLT</option>
+                <option>GREEK</option>
+                <option>HEBREW</option>
+                <option>HINDI</option>
+                <option>HISTORY</option>
+                <option>HUMAN</option>
+                <option>HUMARTS</option>
+                <option>I&C SCI</option>
+                <option>IN4MATX</option>
+                <option>INNO</option>
+                <option>INTL ST</option>
+                <option>ITALIAN</option>
+                <option>JAPANSE</option>
+                <option>KOREAN</option>
+                <option>LATIN</option>
+                <option>LAW</option>
+                <option>LINGUIS</option>
+                <option>LIT JRN</option>
+                <option>LPS</option>
+                <option>LSCI</option>
+                <option>MATH</option>
+                <option>MED HUM</option>
+                <option>MGMT</option>
+                <option>MGMT EP</option>
+                <option>MGMT FE</option>
+                <option>MGMTMBA</option>
+                <option>MOL BIO</option>
+                <option>MPAC</option>
+                <option>MSE</option>
+                <option>MUSIC</option>
+                <option>NET SYS</option>
+                <option>NEURBIO</option>
+                <option>NUR SCI</option>
+                <option>PATH</option>
+                <option>PERSIAN</option>
+                <option>PHILOS</option>
+                <option>PHMD</option>
+                <option>PHRMSCI</option>
+                <option>PHY SCI</option>
+                <option>PHYSICS</option>
+                <option>PHYSIO</option>
+                <option>POL SCI</option>
+                <option>PORTUG</option>
+                <option>PP&D</option>
+                <option>PSCI</option>
+                <option>PSY BEH</option>
+                <option>PSYCH</option>
+                <option>PUBHLTH</option>
+                <option>REL STD</option>
+                <option>ROTC</option>
+                <option>RUSSIAN</option>
+                <option>SOC SCI</option>
+                <option>SOCECOL</option>
+                <option>SOCIOL</option>
+                <option>SPANISH</option>
+                <option>SPPS</option>
+                <option>STATS</option>
+                <option>TOX</option>
+                <option>UCDC</option>
+                <option>UNI STU</option>
+                <option>UPPP</option>
+                <option>VIETMSE</option>
+                <option>WOMN ST</option>
+                <option>WRITING</option>
+            </select>
+            </div>
+            
+            <div style="margin:0 auto;width:500px;">
+                <div class="searchbar">
+                    <input id="search" type="text" placeholder="Course Number" class="searchbar__input" />
+                </div>
+            </div>
+    
+            <div style="float:right;width:150px;margin-bottom:100%;position:relative;bottom:40px;left:30px">
+                <button class="addButton" type="button">
+                    <strong><em>Add Course</em></strong>
+                </button> 
+            </div>
+        </form>
+    </div>
+
+    <hr class="invis">
+
+    <div class="center">
+        <button class="generateClassesButton" type="button">
+            <div class="center"> <strong><em>Generate Order</em></strong> </div>
+        </button>
+    </div>
+
+    <hr class="invis">
+
+    <div class="whitebg">
+        <h2 style="color:black">Added Classes</h2>
+        
+        <tr>
+            <th>Department</th>
+            <th>Course Number</th>
+        </tr>
+
+        <br>
+        <hr>
+        <br>
+
+        <h3>About ZotPlanner</h3>
+        <p>Prerequisites can be confusing, and the goal of this project is to help students figure out 
+            the correct order in which they should enroll in their classes!<br><br>
+            ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current 
+            schoolyear or throughout your entire career.<br><br>
+            The user is then given an ordering of classes that they are able to take such that no 
+            prerequisites requirements are violated.<br><br>
+            The program also warns the user if they did not include a required prerequisite in their input.<br><br>
+            For example, if a student is looking to take CS 122B and they input {CS 122A, CS122B}, 
+            the program would warn them of 122B's ICS 45J requirement. You'll never miss a prerequisite again!
+        </p>
+
+        <br>
+        <hr>
+        <br>
+
+        <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A></strong>
+    </div>
+
+{% endblock %}

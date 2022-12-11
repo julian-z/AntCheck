@@ -1,4 +1,4 @@
-# ZotPlanner
+![](https://github.com/julianzulf/ZotPlanner/blob/main/zotplannerlogo.png)
 Created by Julian Zulfikar, project started on 12-6-2022.
 
 # Purpose

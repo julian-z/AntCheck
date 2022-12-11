@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class="container">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+        <TITLE>ZotPlanner</TITLE>
+        <LINK rev="Made" href="mailto:jzulfika@ics.uci.edu">
+        <META name="person" content="Julian Zulfikar">
+        <META name="sortname" content="Julian Zulfikar">
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+        {% block head %}{% endblock %}
+    </head>
+    
+    <body>
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" />
+        {% block body %}{% endblock %}
+    </body>
+</div>
+</html>

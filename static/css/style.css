@@ -1,0 +1,290 @@
+h1 {
+	color: #145DA0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 100px;
+	letter-spacing: -1.5px;
+	word-spacing: 2px;
+	font-weight: 700;
+	text-decoration: none solid rgb(68, 68, 68);
+	font-style: italic;
+	font-variant: normal;
+	text-transform: none;
+	text-shadow: 3px 5px 2px #474747;
+	text-align: center;
+
+	margin: 0px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+
+h2 {
+	color: white;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	letter-spacing: -1.5px;
+	word-spacing: 2px;
+	font-weight: 700;
+	text-decoration: none solid rgb(68, 68, 68);
+	font-style: italic;
+	font-variant: normal;
+	text-transform: none;
+	text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+
+	margin: 0px;
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+
+h3 {
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	letter-spacing: -1.5px;
+	word-spacing: 2px;
+	font-weight: 700;
+	text-decoration: none solid rgb(68, 68, 68);
+	font-variant: normal;
+	text-transform: none;
+	text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+
+	margin: 0px;
+	padding-bottom: 10px;
+	margin-top: 0px;
+}
+
+
+h4 {
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	letter-spacing: -1.5px;
+	word-spacing: 2px;
+	font-weight: 700;
+	text-decoration: none solid rgb(68, 68, 68);
+	font-variant: normal;
+	text-transform: none;
+	text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+
+	margin: 0px;
+	padding-bottom: 0px;
+	margin-top: 0px;
+}
+
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+
+	margin: 0px;
+	padding: 2px;
+	margin-top: 0px;
+}
+
+
+li {
+	color: black;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	font-weight: 400;
+	text-decoration: none solid rgb(68, 68, 68);
+	font-variant: normal;
+	text-transform: none;
+
+	margin: 0px;
+	padding: 0px;
+	margin-top: 0px;
+}
+
+
+ul {
+	margin-bottom: 0px;
+	margin-top: 5px;
+}
+
+
+hr {
+ 	border: none;
+	border-top: 1px dashed black;
+	color: black;
+	overflow: visible;
+	text-align: center;
+	height: 5px;
+}
+
+
+hr.invis {
+ 	border: none;
+	border-top: 0px dashed black;
+	color: black;
+	overflow: visible;
+	text-align: center;
+	height: 5px;
+}
+
+
+body {
+	background: url(../images/uciblurredcampus.jpg) no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+	/*background-image: linear-gradient(rgb(237,203,151), rgb(175, 116, 69));*/
+	background-color: rgb(175,100,59);
+}
+
+
+.container {
+	margin:0 auto;
+	width:864px;
+}
+
+
+.headertext {
+	font-size: 15px;
+	color: white;
+
+	margin: 0px;
+	padding: 2px;
+	margin-top: 0px;
+}
+
+
+.text {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 15px;
+	color: white;
+
+	margin: 0px;
+	padding: 2px;
+	margin-top: 0px;
+}
+
+
+.bluebg {
+	border-radius: 50px;
+	background-image: linear-gradient(rgb(67,121,168), rgb(42,75,105));
+	background-color: blue;
+	box-shadow: 0 0 3pt 2pt cornflowerblue;
+	padding: 20px;
+}
+
+
+.whitebg {
+	border-radius: 50px;
+	background-color: white;
+	box-shadow: 0 0 3pt 2pt black;
+	padding: 20px;
+}
+
+
+.tanbg {
+	border-radius: 50px;
+	background-color: rgb(237,203,151);
+	box-shadow: 0 0 3pt 2pt white;
+	padding: 20px;
+}
+
+
+
+.graybg {
+	border-radius: 50px;
+	background-image: linear-gradient(rgb(192,192,192), rgb(169,169,169));
+	background-color: gray;
+	box-shadow: 0 0 3pt 2pt black;
+	padding: 20px;
+}
+
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
+}
+
+
+.generateClassesButton {
+	width: 100%;
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+	padding: 10px;
+	border-radius: 10px;
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+
+	background-image: linear-gradient(to right, rgb(28, 164, 73) 0%, rgb(51, 153, 85) 50%, rgb(11, 68, 30) 100%);
+	border: 2px solid rgb(12, 105, 43);
+	display: inline-flex;
+}
+.generateClassesButton:hover {
+background: rgb(11, 68, 30); }
+.generateClassesButton:active {
+background: rgb(11, 68, 30); }
+
+
+.addButton {
+	flex-grow: 1;
+	color: rgb(255, 255, 255);
+	font-size: 15px;
+	padding: 10px;
+	border-radius: 5px 5px 5px 5px;
+
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	text-decoration: none;
+	font-style: normal;
+	font-variant: normal;
+	text-transform: none;
+
+	background-image: linear-gradient(to right, rgb(28, 110, 164) 0%, rgb(35, 136, 203) 50%, rgb(20, 78, 117) 100%);
+	border: 2px solid rgb(28, 110, 164);
+	display: inline-flex;
+	box-shadow: 4px 4px #ccc;
+}
+.addButton:hover {
+background: #1C6EA4; }
+.addButton:active {
+background: #144E75; }
+
+
+.searchbar {
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-flex;
+}
+.searchbar__input {
+	flex-grow: 1;
+	font-size: 15px;
+	padding: 9px;
+	color: #1c87c9;
+	outline: none;
+	border: 2px solid rgb(28, 110, 164);
+	border-radius: 5px 5px 5px 5px;
+	background: rgb(222, 227, 230);
+	box-shadow: 4px 4px #ccc;
+}
+
+
+.dropdown {
+	border: 2px solid rgb(28, 110, 164);
+	font-size: 15px;
+	padding: 9px;
+	color: #1c87c9;
+	background: rgb(222, 227, 230);
+	border-radius: 5px;
+	box-shadow: 4px 4px #ccc;
+	display: inline-flex;
+}
+
