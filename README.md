@@ -31,6 +31,9 @@ Directions and sample input files are provided. Actively seeking for ways to opt
 
 As of 12-8-2022, in the Python Shell version, the user is able to manually input classes one-by-one, input it via CSV one-liner, or a file input (demonstrated by sample_input.txt).
 
+As of 12-10-2022, a localhost website is available. Full demonstration in GIF:
+![](https://github.com/julianzulf/ZotPlanner/blob/main/zotplannerfulldemo.gif)
+
 # Files
 Each file is well-documented with summaries at the top.
 

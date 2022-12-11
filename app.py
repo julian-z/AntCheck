@@ -9,7 +9,7 @@ app = Flask(__name__)
 COURSE_LIST = []
 
 
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
         dept = request.form['drop']
