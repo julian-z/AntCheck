@@ -11,9 +11,9 @@
     class="center"/>
 
     <div class="tanbg">
-        <form>
+        <form action="/" method="POST">
             <div style="float:left;width:50px">
-            <select class="dropdown" data-trigger="" name="choices-single-defaul">
+            <select class="dropdown" data-trigger="" name="drop" id="drop">
                 <option placeholder="">Department</option>
                 <option>AC ENG</option>
                 <option>AFAM</option>
@@ -140,39 +140,56 @@
             
             <div style="margin:0 auto;width:500px;">
                 <div class="searchbar">
-                    <input id="search" type="text" placeholder="Course Number" class="searchbar__input" />
+                    <input id="search" name="search" type="text" placeholder="Course Number" class="searchbar__input" />
                 </div>
             </div>
     
             <div style="float:right;width:150px;margin-bottom:100%;position:relative;bottom:40px;left:30px">
-                <button class="addButton" type="button">
-                    <strong><em>Add Course</em></strong>
-                </button> 
+                <form action="/" method="POST">
+                    <button class="addButton" type="submit"><strong><em>Add Course</em></strong></button>
+                </form>
             </div>
         </form>
     </div>
 
     <hr class="invis">
 
-    <div class="center">
-        <button class="generateClassesButton" type="button">
-            <div class="center"> <strong><em>Generate Order</em></strong> </div>
-        </button>
+    <div class="graybg">
+        <h2>Actions: </h2>
+        <a href="/generate">
+            <strong><em>Generate Order</em></strong>
+        </a>
+        <br>
+        <a href="/clear">
+            <strong><em>Clear Courses</em></strong>
+        </a>
     </div>
 
     <hr class="invis">
 
     <div class="whitebg">
+        {% if errormsg != "" %}
+            <p style="color: red">{{ errormsg }}</p>
+            <br>
+        {% endif %}
+
+        {% if courses|length > 0 %}
         <h2 style="color:black">Added Classes</h2>
-        
-        <tr>
-            <th>Department</th>
-            <th>Course Number</th>
-        </tr>
+        <table>
+            <tr>
+                <th>Course</th>
+            </tr>
+            {% for course in courses %}
+            <tr>
+                <td>{{ course }}</td>
+            </tr>
+            {% endfor %}
+        </table>
 
         <br>
         <hr>
         <br>
+        {% endif %}
 
         <h3>About ZotPlanner</h3>
         <p>Prerequisites can be confusing, and the goal of this project is to help students figure out 
@@ -182,15 +199,26 @@
             The user is then given an ordering of classes that they are able to take such that no 
             prerequisites requirements are violated.<br><br>
             The program also warns the user if they did not include a required prerequisite in their input.<br><br>
-            For example, if a student is looking to take CS 122B and they input {CS 122A, CS122B}, 
-            the program would warn them of 122B's ICS 45J requirement. You'll never miss a prerequisite again!
+            For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, 
+            the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
         </p>
 
         <br>
         <hr>
         <br>
 
-        <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A></strong>
+        <h3>Side Notes</h3>
+        <UL>
+            <LI>A class will be invalid if it has not been offered in the past 5 quarters! <strong>Last update: Winter 2023</strong></LI>
+            <LI>Questions/Bugs? Email: jzulfika@uci.edu</LI>
+        </UL>
+
+        <br>
+        <hr>
+        <br>
+
+        <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A>
+        <p><em>Developed by Julian Zulfikar, 2022</em></p>
     </div>
 
 {% endblock %}

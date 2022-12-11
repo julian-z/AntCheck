@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+
+<div class="whitebg">
+    {% if order[0] == "FATAL" %}
+        <p style="color: red">{{ warning }}</p>
+        <br>
+    {% else %}
+        <h2 style="color:black">Order of Classes</h2>
+        <table>
+            {% for course in order %}
+            <tr>
+                <td>{{ course }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        {% if warning|length != 0 %}
+        <br>
+        <hr>
+        <br>
+        <h3 style="color: red">Some classes may seem out of order due to these warnings:</h3>
+        {% for s in warning %}
+            <p style="color: red">{{ s }}</p>
+            <br>
+        {% endfor %}
+        {% endif %}
+    {% endif %}
+
+    <br>
+    <hr>
+    <br>
+
+    <h3>About ZotPlanner</h3>
+    <p>Prerequisites can be confusing, and the goal of this project is to help students figure out 
+        the correct order in which they should enroll in their classes!<br><br>
+        ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current 
+        schoolyear or throughout your entire career.<br><br>
+        The user is then given an ordering of classes that they are able to take such that no 
+        prerequisites requirements are violated.<br><br>
+        The program also warns the user if they did not include a required prerequisite in their input.<br><br>
+        For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, 
+        the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
+    </p>
+
+    <br>
+    <hr>
+    <br>
+
+    <h3>Side Notes</h3>
+    <UL>
+        <LI>A class will be invalid if it has not been offered in the past 5 quarters! <strong>Last update: Winter 2023</strong></LI>
+        <LI>Questions/Bugs? Email: jzulfika@uci.edu</LI>
+    </UL>
+
+    <br>
+    <hr>
+    <br>
+
+    <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A>
+    <p><em>Developed by Julian Zulfikar, 2022</em></p>
+</div>
+
+{% endblock %}

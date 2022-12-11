@@ -8,7 +8,9 @@ ZotPlanner takes a given set of UCI classes that you intend to take; could be in
 
 The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
 
-The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 122B and they input {CS 122A, CS122B}, the program would warn them of 122B's ICS 45J requirement. You'll never miss a prerequisite again!
+The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
+
+![](https://github.com/julianzulf/ZotPlanner/blob/main/zotplannerdemo.gif)
 
 # How It Works
 The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
@@ -45,8 +47,6 @@ Since UCI's course database isn't readily available, the program has to check th
 
 # Future Endeavors
 Development phase is extremely early on, as of December 2022. Looking to make as many optimizations as possible.
-
-We are currently looking into implementing a website version for the ease of users.
 
 # Conclusion
 Open to suggestions! Email me at jzulfika@uci.edu
