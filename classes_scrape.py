@@ -181,6 +181,10 @@ def valid_class(x: str) -> bool:
 
 
 def check_for_unlisted_prereqs(course: str, class_list: list):
+    """
+    Gets prereqs, for every class in class_list, eliminates
+    prereq. If there are any left, they are returned in a list.
+    """
     if course not in CACHE_PREREQ_STRS.keys():
         return []
     

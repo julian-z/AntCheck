@@ -207,7 +207,7 @@ th, td {
 	border-radius: 50px;
 	background-image: linear-gradient(rgb(192,192,192), rgb(169,169,169));
 	background-color: gray;
-	box-shadow: 0 0 3pt 2pt black;
+	box-shadow: 0 0 3pt 2pt darkgray;
 	padding: 20px;
 }
 

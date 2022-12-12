@@ -1,9 +1,13 @@
+# app.py - Julian Zulfikar, 2022
+# ------------------------------------------------------------------
+# Uses the Flask framework, HTML, and CSS to create a website
+# implementation of ZotPlanner.
+
 from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 
 from classes_scrape import prereq, valid_class, check_for_unlisted_prereqs
 from graph import Graph
-
 
 app = Flask(__name__)
 COURSE_LIST = []
@@ -11,6 +15,9 @@ COURSE_LIST = []
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    """
+    Renders the homepage.
+    """
     if request.method == 'POST':
         dept = request.form['drop']
         dept = dept.replace(" ", '')
@@ -36,7 +43,7 @@ def _topological_sort(graph: 'Graph', nodes: list) -> None:
 
     Citation: Professor Michael Shindler, ICS-46
 
-    - Modified from main.py to return (list, str)
+    - Modified from main.py to return (list, list)
     """
     result = []
     count = 1
@@ -56,9 +63,11 @@ def _topological_sort(graph: 'Graph', nodes: list) -> None:
         count += 1
         unmentioned_warning = check_for_unlisted_prereqs(u, class_list)
         if len(unmentioned_warning) > 0:
-            warning_lst.append(f"WARNING: Unlisted Prerequisites For {u}:\n")
-            for lst in unmentioned_warning:
-                warning_lst.append("- "+" OR ".join(lst)+'\n')
+            lst = []
+            lst.append(f"WARNING: Unlisted Prerequisites For {u}:")
+            for l in unmentioned_warning:
+                lst.append("- "+" OR ".join(l))
+            warning_lst.append(lst)
         
         for node in nodes:
             if graph.getInDegree(node) == 0 and not (node in available):
@@ -69,6 +78,9 @@ def _topological_sort(graph: 'Graph', nodes: list) -> None:
 
 @app.route('/generate')
 def generate():
+    """
+    Generates a directed graph and finds a topological sort of classes.
+    """
     try:
         # Initialize graph
         global COURSE_LIST
@@ -78,7 +90,6 @@ def generate():
             class_list_no_c = list(COURSE_LIST)
             class_list_no_c.remove(c)
             for d in class_list_no_c:
-                print(f"Checking if {c} is a prerequisite to {d}...")
                 if prereq(c,d):
                     class_graph.addDirectedEdge(c,d)
         
@@ -92,6 +103,9 @@ def generate():
 
 @app.route('/clear')
 def clearCourses():
+    """
+    Clears the current list of added courses.
+    """
     global COURSE_LIST
     COURSE_LIST = []
     return render_template('index.html', courses=COURSE_LIST, errormsg="")

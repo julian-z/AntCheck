@@ -1,5 +1,5 @@
-![](https://github.com/julianzulf/ZotPlanner/blob/main/zotplannerlogo.png)
-Created by Julian Zulfikar, project started on 12-6-2022.
+![](https://github.com/julian-z/ZotPlanner/blob/main/static/images/zotplannerlogo.png)
+Created by Julian Zulfikar.
 
 # Purpose
 Prerequisites can be confusing, and the goal of this project is to help students figure out the correct order in which they should enroll in their classes!
@@ -10,7 +10,7 @@ The user is then given an ordering of classes that they are able to take such th
 
 The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
 
-![](https://github.com/julianzulf/ZotPlanner/blob/main/zotplannerdemo.gif)
+![](https://github.com/julianzulf/ZotPlanner/blob/main/images/zotplannerdemo.gif)
 
 # How It Works
 The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
@@ -19,7 +19,7 @@ A topological sort is then performed on such graph; returning a sorted order of 
 
 The program uses UCI's PeterPortal API in order to look up the class in the database. However, the current implementation of the API does not provide a list of classes that are considered prerequisites. In order to combat this, the Schedule of Classes website's source code is scraped in order to check whether or not a given class is a prerequisite to another.
 
-![](https://github.com/julianzulf/ZotPlanner/blob/main/topologicalsort.gif)
+![](https://github.com/julianzulf/ZotPlanner/blob/main/images/topologicalsort.gif)
 
 # Optimizations
 You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
@@ -31,8 +31,11 @@ Directions and sample input files are provided. Actively seeking for ways to opt
 
 As of 12-8-2022, in the Python Shell version, the user is able to manually input classes one-by-one, input it via CSV one-liner, or a file input (demonstrated by sample_input.txt).
 
-As of 12-10-2022, a localhost website is available. Full demonstration in GIF:
-![](https://github.com/julianzulf/ZotPlanner/blob/main/zotplannerfulldemo.gif)
+As of 12-10-2022, a localhost website is available.
+
+12-12-22 Screenshots:
+![](https://github.com/julianzulf/ZotPlanner/blob/main/images/index.png)
+![](https://github.com/julianzulf/ZotPlanner/blob/main/images/generate.png)
 
 # Files
 Each file is well-documented with summaries at the top.
@@ -44,6 +47,8 @@ graph.py: Hash-map adjacency list of a graph implementation
 general_tests.py: Unit tests for test-driven development
 
 main.py: run() function, creates a topological sort of given classes
+
+app.py: Utilizes Flask framework for website implementation
 
 # Shortcomings
 Since UCI's course database isn't readily available, the program has to check the past 5 quarters to decide if it is a valid class. Though, it may be very unlikely that a class has not been offered since then & is still relevant.

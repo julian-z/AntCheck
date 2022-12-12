@@ -5,6 +5,21 @@
 
 {% block body %}
 
+<IMG src="../static/images/zotplannerlogo.png" 
+    alt="ZotPlanner"
+    height=10%
+    width=auto
+    class="center"/>
+
+<div class="graybg">
+    <h2>Actions</h2>
+    <a href="/">
+        <strong><em>Return Home</em></strong>
+    </a>
+</div>
+
+<hr class="invis">
+
 <div class="whitebg">
     {% if order[0] == "FATAL" %}
         <p style="color: red">{{ warning }}</p>
@@ -24,10 +39,15 @@
         <hr>
         <br>
         <h3 style="color: red">Some classes may seem out of order due to these warnings:</h3>
-        {% for s in warning %}
-            <p style="color: red">{{ s }}</p>
-            <br>
-        {% endfor %}
+            {% for lst in warning %}
+            <span style="display: block; margin-bottom: 3px"></span> 
+                {% for s in lst %}
+                    <p style="color: red; font-style: italic">
+                        {{ s }}
+                    </p>
+                    <span style="display: block; margin-bottom: 1px"></span> 
+                {% endfor %}
+            {% endfor %}
         {% endif %}
     {% endif %}
 
@@ -54,7 +74,7 @@
     <h3>Side Notes</h3>
     <UL>
         <LI>A class will be invalid if it has not been offered in the past 5 quarters! <strong>Last update: Winter 2023</strong></LI>
-        <LI>Questions/Bugs? Email: jzulfika@uci.edu</LI>
+        <LI>Questions/Bugs? Email: <A href="mailto:jzulfika@ics.uci.edu"> jzulfika@uci.edu</A></LI>
     </UL>
 
     <br>
