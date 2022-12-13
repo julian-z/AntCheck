@@ -1,5 +1,5 @@
 ![](https://github.com/julian-z/ZotPlanner/blob/main/static/images/zotplannerlogo.png)
-Created by Julian Zulfikar.
+Created by Julian Zulfikar, December 2022.
 
 # Purpose
 Prerequisites can be confusing, and the goal of this project is to help students figure out the correct order in which they should enroll in their classes!
@@ -55,6 +55,8 @@ Since UCI's course database isn't readily available, the program has to check th
 
 # Future Endeavors
 Development phase is extremely early on, as of December 2022. Looking to make as many optimizations as possible.
+
+Currently, the website implementation can only be run on localhost, as I am currently looking to host it somewhere that will allow the API to be used.
 
 # Conclusion
 Open to suggestions! Email me at jzulfika@uci.edu

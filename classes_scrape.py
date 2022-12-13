@@ -49,6 +49,7 @@ def _try_peter_portal(url: str) -> (bool, dict):
     """
     try:
         # Using PeterPortal
+        response_get = None
         response_get = requests.get(url)
         response = response_get.json()
 
@@ -60,7 +61,8 @@ def _try_peter_portal(url: str) -> (bool, dict):
     except:
         return (False, dict())
     finally:
-        response_get.close()
+        if response_get != None:
+            response_get.close()
 
 
 
@@ -164,6 +166,7 @@ def valid_class(x: str) -> bool:
         
         try:
             # Using PeterPortal
+            response_get = None
             response_get = requests.get(url)
             response = response_get.json()
 
@@ -174,7 +177,8 @@ def valid_class(x: str) -> bool:
         except:
             return False
         finally:
-            response_get.close()
+            if response_get != None:
+                response_get.close()
 
     return False
 
