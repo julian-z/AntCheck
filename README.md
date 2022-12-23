@@ -10,7 +10,7 @@ The user is then given an ordering of classes that they are able to take such th
 
 The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
 
-![](https://github.com/julianzulf/ZotPlanner/blob/main/images/zotplannerdemo.gif)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/zotplannerdemo.gif)
 
 # How It Works
 The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
@@ -19,7 +19,7 @@ A topological sort is then performed on such graph; returning a sorted order of 
 
 The program uses UCI's PeterPortal API in order to look up the class in the database. However, the current implementation of the API does not provide a list of classes that are considered prerequisites. In order to combat this, the Schedule of Classes website's source code is scraped in order to check whether or not a given class is a prerequisite to another.
 
-![](https://github.com/julianzulf/ZotPlanner/blob/main/images/topologicalsort.gif)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/topologicalsort.gif)
 
 # Optimizations
 You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
@@ -34,8 +34,8 @@ As of 12-8-2022, in the Python Shell version, the user is able to manually input
 As of 12-10-2022, a localhost website is available.
 
 12-12-22 Screenshots:
-![](https://github.com/julianzulf/ZotPlanner/blob/main/images/index.png)
-![](https://github.com/julianzulf/ZotPlanner/blob/main/images/generate.png)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/index.png)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/generate.png)
 
 # Files
 Each file is well-documented with summaries at the top.
