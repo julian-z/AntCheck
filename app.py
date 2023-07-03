@@ -6,7 +6,7 @@
 from flask import Flask, render_template, url_for, request
 from flask_sqlalchemy import SQLAlchemy
 
-from classes_scrape import prereq, valid_class, check_for_unlisted_prereqs
+from query import prereq, valid_class, check_for_unlisted_prereqs
 from graph import Graph
 
 app = Flask(__name__)
@@ -20,14 +20,13 @@ def index():
     """
     if request.method == 'POST':
         dept = request.form['drop']
-        dept = dept.replace(" ", '')
         course_num = request.form['search']
 
         if (len(course_num) == 0) or (not course_num[0].isnumeric()):
             return render_template('index.html', courses=COURSE_LIST, errormsg="Error adding class.")
 
-        if (dept+course_num not in COURSE_LIST) and valid_class(dept+course_num):
-            COURSE_LIST.append(dept+course_num)
+        if (dept+course_num not in COURSE_LIST) and valid_class(dept+' '+course_num):
+            COURSE_LIST.append(dept+' '+course_num)
         else:
             return render_template('index.html', courses=COURSE_LIST, errormsg="Error adding class.")
 

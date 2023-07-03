@@ -5,7 +5,7 @@
 # A.K.A. an ordering of classes such that if taken in order,
 # prerequisites will not be violated.
 
-from classes_scrape import prereq, valid_class, check_for_unlisted_prereqs
+from query import prereq, valid_class, check_for_unlisted_prereqs
 from graph import Graph
 
 
@@ -53,15 +53,13 @@ def run() -> None:
     """
     Runs program as intended.
     """
+    
     # Prompt user for classes
     print("UCI Prerequisite Planner -- Developed by Julian Zulfikar, 2022")
     print("----------------------------------------------------------------------")
-    print("Note #1: Classes must be formatted as DEPARTMENT000")
-    print("         i.e. COMPSCI161, MATH2B")
-    print("         - If a department has spaces (I&C SCI), do not include")
+    print("Note: Classes must be formatted as DEPARTMENT 000")
+    print("      i.e. COMPSCI 161, MATH 2B, I&C SCI 31")
     print("         - Input department as shown on Schedule of Classes\n")
-    print("Note #2: A class will be invalid if it has not been offered in the")
-    print("         past 5 quarters! Last update: Winter 2023\n")
     print("Questions/Bugs? Email: jzulfika@uci.edu")
     print("----------------------------------------------------------------------")
 
@@ -85,9 +83,7 @@ def run() -> None:
         class_input = input("Class: ")
         while class_input != 'DONE':
             try:
-                if class_input.find(" ") != -1:
-                    print(f"ERROR: Remove spaces.")
-                elif valid_class(class_input):
+                if valid_class(class_input):
                     if class_input in class_list:
                         print(f"ERROR: {class_input} already added.")
                     else:
@@ -102,7 +98,7 @@ def run() -> None:
     # One line input
     elif input_option == 'O':
         print("Input: One line input separated by commas")
-        print("       i.e. 'I&CSCI31,I&CSCI32,I&CSCI33'")
+        print("       i.e. 'I&C SCI 31,I&C SCI 32,I&C SCI 33'")
         print("Note: Invalid courses will be ignored!")
         print("----------------------------------------------------------------------")
         class_input = input("Classes: ")
@@ -110,9 +106,7 @@ def run() -> None:
         print("Attempting to add classes...")
         for c in inputted_classes:
             try:
-                if c.find(" ") != -1:
-                    print(f"ERROR: {c} has spaces.")
-                elif valid_class(c):
+                if valid_class(c):
                     if c in class_list:
                         print(f"ERROR: {c} is already added. Has been skipped.")
                     else:
@@ -135,9 +129,7 @@ def run() -> None:
                     for line in f:
                         c = line.rstrip('\n')
                         try:
-                            if c.find(" ") != -1:
-                                print(f"ERROR: {c} has spaces.")
-                            elif valid_class(c):
+                            if valid_class(c):
                                 if c in class_list:
                                     print(f"ERROR: {c} is already added. Has been skipped.")
                                 else:
@@ -147,7 +139,6 @@ def run() -> None:
                                 print(f"ERROR: {c} either is invalid or has not been offered recently.")
                         except:
                             print(f"ERROR: {c} is not correctly formatted")
-                        
                 break # Done processing file
             except:
                 print(f"ERROR: File {filename} is invalid. Make sure it is in the same folder as main.py!")
@@ -171,12 +162,10 @@ def run() -> None:
     print("----------------------------------------------------------------------")
     print("Sorting by prerequisites...")
     print("----------------------------------------------------------------------")
-    top_sort = _topological_sort(class_graph, class_list)
+    _topological_sort(class_graph, class_list)
 
     print("----------------------------------------------------------------------")
-    print("NOTE: As of 12-6-22, corequisites are treated as prerequisites!")
     print("Questions/Bugs? Email: jzulfika@uci.edu")
-
 
 
 if __name__ == "__main__":

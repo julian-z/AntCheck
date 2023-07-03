@@ -24,7 +24,7 @@ The program uses UCI's PeterPortal API in order to look up the class in the data
 # Optimizations
 You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
 
-To fight this, after every valid URL request from the API & the Schedule of Classes, we "memoize" the data, which keeps it in a cache for later use. This shortens the runtime drastically, as without it, we would have to request to check the prerequisites for every pair of classes, which would grow to be extremely slow the more classes are inputted.
+To fight this, a web-crawler was built which goes through every course page of each department. The data of each course is then collected, and thus, we retrieve any information we need through an index.
 
 # How To Use
 Directions and sample input files are provided. Actively seeking for ways to optimize user experience.
@@ -40,23 +40,18 @@ As of 12-10-2022, a localhost website is available.
 # Files
 Each file is well-documented with summaries at the top.
 
-classes_scrape.py: Utilizes UCI's PeterPortal API & scrapes the source code of UCI's Schedule of Classes website to collect prerequisites
+index.py: Crawls through UCI's courses and builds an index for easy look-up
+
+query.py: Retrieves information from the index of courses
 
 graph.py: Hash-map adjacency list of a graph implementation
-
-general_tests.py: Unit tests for test-driven development
 
 main.py: run() function, creates a topological sort of given classes
 
 app.py: Utilizes Flask framework for website implementation
 
-# Shortcomings
-Since UCI's course database isn't readily available, the program has to check the past 5 quarters to decide if it is a valid class. Though, it may be very unlikely that a class has not been offered since then & is still relevant.
-
 # Future Endeavors
-Development phase is extremely early on, as of December 2022. Looking to make as many optimizations as possible.
-
-Currently, the website implementation can only be run on localhost, as I am currently looking to host it somewhere that will allow the API to be used.
+The next step for this project is yet to be announced.
 
 # Conclusion
 Open to suggestions! Email me at jzulfika@uci.edu
