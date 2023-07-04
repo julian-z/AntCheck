@@ -12,7 +12,7 @@ The program also warns the user if they did not include a required prerequisite 
 
 The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
 
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/zotplannerdemo.gif)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/zotplanner.gif)
 
 # How It Works
 The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
