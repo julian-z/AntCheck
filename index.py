@@ -25,6 +25,7 @@ from math import log10
 # nltk.download('wordnet')
 # nltk.download('stopwords')
 # nltk.download('averaged_perceptron_tagger')
+# nltk.download('omw-1.4')
 
 COURSES_URL = "https://catalogue.uci.edu/allcourses/"
 

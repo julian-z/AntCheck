@@ -2,29 +2,33 @@
 Created by Julian Zulfikar, December 2022.
 
 # Purpose
-Prerequisites can be confusing, and the goal of this project is to help students figure out the correct order in which they should enroll in their classes!
+Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
 
-ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current schoolyear or throughout your entire career.
+ZotPlanner takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
 
 The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
 
 The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
+
+The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
 
 ![](https://github.com/julian-z/ZotPlanner/blob/main/images/zotplannerdemo.gif)
 
 # How It Works
 The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
 
-A topological sort is then performed on such graph; returning a sorted order of classes that can be taken where prerequisites are not violated.
+A topological sort is then performed on such graph, returning a sorted order of classes that can be taken where prerequisites are not violated.
 
-The program uses UCI's PeterPortal API in order to look up the class in the database. However, the current implementation of the API does not provide a list of classes that are considered prerequisites. In order to combat this, the Schedule of Classes website's source code is scraped in order to check whether or not a given class is a prerequisite to another.
+To easily retrieve information on how classes are related to each other, the program stores an index keeping track of course titles, descriptions, prerequisites, etc. The search engine relies on an inverted index, which uses words/tokens as search keys instead of courses.
 
 ![](https://github.com/julian-z/ZotPlanner/blob/main/images/topologicalsort.gif)
 
 # Optimizations
 You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
 
-To fight this, a web-crawler was built which goes through every course page of each department. The data of each course is then collected, and thus, we retrieve any information we need through an index.
+Previously, (prior to July 2023) the program used the PeterPortal API to find prerequisite links, however, this was a major bottleneck due to the reason above. The optimization made to combat this issue was to memoize/cache every call, thus building an index as the program ran.
+
+As of now, a web-crawler has been built which goes through every course page of each department. The data of each course is then collected, and thus, we quickly retrieve any information we need through an index.
 
 # How To Use
 Directions and sample input files are provided. Actively seeking for ways to optimize user experience.
@@ -33,9 +37,15 @@ As of 12-8-2022, in the Python Shell version, the user is able to manually input
 
 As of 12-10-2022, a localhost website is available.
 
-12-12-22 Screenshots:
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/index.png)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/generate.png)
+As of 7-3-2023, a search engine implementation has been applied.
+
+As of 7-4-2023, ZotPlanner has been deployed for demonstration: https://zotplanner.pythonanywhere.com/
+
+7-4-2023 Screenshots:
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/1)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/2)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/3)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/4)
 
 # Files
 Each file is well-documented with summaries at the top.
@@ -48,10 +58,9 @@ graph.py: Hash-map adjacency list of a graph implementation
 
 main.py: run() function, creates a topological sort of given classes
 
-app.py: Utilizes Flask framework for website implementation
+search.py: query_catalogue() function, serves as algorithm for search engine
 
-# Future Endeavors
-The next step for this project is yet to be announced.
+app.py: Utilizes Flask framework for website implementation
 
 # Conclusion
 Open to suggestions! Email me at jzulfika@uci.edu

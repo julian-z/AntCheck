@@ -12,6 +12,7 @@ from search import query_catalogue, DATA_INDEX
 
 app = Flask(__name__)
 COURSE_LIST = []
+COURSE_TITLES = []
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -25,12 +26,13 @@ def index():
             course_num = request.form['course_num']
 
             if (len(course_num) == 0) or (not course_num[0].isnumeric()):
-                return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="Error adding class.")
+                return render_template('index.html', search_results=[], courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="Error adding class.")
 
             if (dept+course_num not in COURSE_LIST) and valid_class(dept+' '+course_num):
                 COURSE_LIST.append(dept+' '+course_num)
+                COURSE_TITLES.append(DATA_INDEX[COURSE_LIST[-1]][1])
             else:
-                return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="Error adding class.")
+                return render_template('index.html', search_results=[], courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="Error adding class.")
         else:
             query = request.form['search_courses']
 
@@ -42,11 +44,11 @@ def index():
                     break
                 search_results.append((course, DATA_INDEX[course][1], DATA_INDEX[course][2], DATA_INDEX[course][3]))
 
-            return render_template('index.html', search_results=search_results, courses=COURSE_LIST, errormsg="")
+            return render_template('index.html', search_results=search_results, courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="")
 
-        return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="")
+        return render_template('index.html', search_results=[], courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="")
     else:
-        return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="")
+        return render_template('index.html', search_results=[], courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="")
 
 
 def _topological_sort(graph: 'Graph', nodes: list) -> None:
@@ -121,7 +123,9 @@ def clearCourses():
     """
     global COURSE_LIST
     COURSE_LIST = []
-    return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="")
+    global COURSE_TITLES
+    COURSE_TITLES = []
+    return render_template('index.html', search_results=[], courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="")
 
 
 if __name__ == '__main__':
