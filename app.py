@@ -3,11 +3,12 @@
 # Uses the Flask framework, HTML, and CSS to create a website
 # implementation of ZotPlanner.
 
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 from query import prereq, valid_class, check_for_unlisted_prereqs
 from graph import Graph
+from search import query_catalogue, DATA_INDEX
 
 app = Flask(__name__)
 COURSE_LIST = []
@@ -19,20 +20,33 @@ def index():
     Renders the homepage.
     """
     if request.method == 'POST':
-        dept = request.form['drop']
-        course_num = request.form['search']
+        if 'course_num' in request.form:
+            dept = request.form['drop']
+            course_num = request.form['course_num']
 
-        if (len(course_num) == 0) or (not course_num[0].isnumeric()):
-            return render_template('index.html', courses=COURSE_LIST, errormsg="Error adding class.")
+            if (len(course_num) == 0) or (not course_num[0].isnumeric()):
+                return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="Error adding class.")
 
-        if (dept+course_num not in COURSE_LIST) and valid_class(dept+' '+course_num):
-            COURSE_LIST.append(dept+' '+course_num)
+            if (dept+course_num not in COURSE_LIST) and valid_class(dept+' '+course_num):
+                COURSE_LIST.append(dept+' '+course_num)
+            else:
+                return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="Error adding class.")
         else:
-            return render_template('index.html', courses=COURSE_LIST, errormsg="Error adding class.")
+            query = request.form['search_courses']
 
-        return render_template('index.html', courses=COURSE_LIST, errormsg="")
+            print("SEARCHING CATALOGUE:", query)
+            
+            search_results = []
+            for i, course in enumerate(query_catalogue(query)):
+                if i >= 20:
+                    break
+                search_results.append((course, DATA_INDEX[course][1], DATA_INDEX[course][2], DATA_INDEX[course][3]))
+
+            return render_template('index.html', search_results=search_results, courses=COURSE_LIST, errormsg="")
+
+        return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="")
     else:
-        return render_template('index.html', courses=COURSE_LIST, errormsg="")
+        return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="")
 
 
 def _topological_sort(graph: 'Graph', nodes: list) -> None:
@@ -107,7 +121,7 @@ def clearCourses():
     """
     global COURSE_LIST
     COURSE_LIST = []
-    return render_template('index.html', courses=COURSE_LIST, errormsg="")
+    return render_template('index.html', search_results=[], courses=COURSE_LIST, errormsg="")
 
 
 if __name__ == '__main__':

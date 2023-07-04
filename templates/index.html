@@ -141,13 +141,34 @@
         
         <div style="margin:0 auto;width:500px;">
             <div class="searchbar">
-                <input id="search" name="search" type="text" placeholder="Course Number" class="searchbar__input" />
+                <input id="course_num" name="course_num" type="text" placeholder="Course Number" class="searchbar__input" />
             </div>
         </div>
 
         <div style="float:right; width:150px; position:relative; bottom:40px; left:30px">
             <form action="/" method="POST">
                 <button class="addButton" type="submit"><strong><em>Add Course</em></strong></button>
+            </form>
+        </div>
+    </form>
+</div>
+
+<hr class="invis">
+
+<div class="greenbg">
+    <form action="/" method="POST">
+        <div style="float:left;width:50px">
+        </div>
+        
+        <div style="margin:0 auto;width:655px; position:relative; left:-80px">
+            <div class="searchbar2">
+                <input id="search_courses" name="search_courses" type="text" placeholder="Search the course catalogue..." class="searchbar__input2" />
+            </div>
+        </div>
+
+        <div style="float:right; width:150px; position:relative; bottom:40px; left:30px">
+            <form action="/" method="POST">
+                <button class="searchButton" type="submit"><strong><em>Search</em></strong></button>
             </form>
         </div>
     </form>
@@ -168,10 +189,38 @@
 
 <hr class="invis">
 
+
 <div class="whitebg">
     {% if errormsg != "" %}
         <p style="color: red">{{ errormsg }}</p>
         <br>
+    {% endif %}
+
+    {% if search_results|length > 0 %}
+    <h2 style="color:black">Search Results (Top 20)</h2>
+    <hr class="invis">
+    <table>
+        <tr>
+            <th>Course</th>
+            <th>Description</th>
+            <th>Prerequisites</th>
+        </tr>
+        {% for course in search_results %}
+        <tr>
+            <td><strong>{{ course[0] }}</strong> - <em>{{ course[1] }}</em></td>
+            <td style="font-size: 14px;">{{ course[2] }}</td>
+            {% if course[3]|length > 0 %}
+                <td style="font-size: 14px;">{{ course[3] }}</td>
+            {% else %}
+                <td style="font-size: 14px;">N/A</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    
+    <br>
+    <hr>
+    <br>
     {% endif %}
 
     {% if courses|length > 0 %}
