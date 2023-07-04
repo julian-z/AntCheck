@@ -4,7 +4,6 @@
 
 from index import Index
 
-
 INDEX = Index().get_index()
 
 
@@ -25,7 +24,7 @@ def valid_class(x: str) -> bool:
 def check_for_unlisted_prereqs(course: str, class_list: list):
     """
     Checks for any prerequisites not listed.
-        i.e. Input is ICS 33 and ICS 6B -- the program will
+        e.g. Input is ICS 33 and ICS 6B -- the program will
              warn them that ICS 32 is a prerequisite to 33,
              since they did not input it themselves.
     """
