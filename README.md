@@ -42,10 +42,10 @@ As of 7-3-2023, a search engine implementation has been applied.
 As of 7-4-2023, ZotPlanner has been deployed for demonstration: https://zotplanner.pythonanywhere.com/
 
 7-4-2023 Screenshots:
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/1)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/2)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/3)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/4)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/1.png)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/2.png)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/3.png)
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/4.png)
 
 # Files
 Each file is well-documented with summaries at the top.
