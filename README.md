@@ -31,6 +31,8 @@ Previously, (prior to July 2023) the program used the PeterPortal API to find pr
 
 As of now, a web-crawler has been built which goes through every course page of each department. The data of each course is then collected, and thus, we quickly retrieve any information we need through an index.
 
+![](https://github.com/julian-z/ZotPlanner/blob/main/images/runtime_comparison.png)
+
 # How To Use 💻
 Directions and sample input files are provided. Actively seeking for ways to optimize user experience.
 
