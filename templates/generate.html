@@ -1,99 +1,112 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block head %}
-{% endblock %}
+<head>
+    <title>ZotPlanner</title>        
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rev="Made" href="mailto:jzulfika@ics.uci.edu">
+    <meta name="person" content="Julian Zulfikar">
+    <meta name="sortname" content="Julian Zulfikar">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
 
-{% block body %}
-
-<IMG src="../static/images/zotplannerlogo.png" 
-    alt="ZotPlanner"
-    height=10%
-    width=auto
-    class="center"/>
-
-<div class="graybg">
-    <h2>Actions</h2>
-    <a href="/">
-        <strong><em>Return Home</em></strong>
-    </a>
-</div>
-
-<hr class="invis">
-
-<div class="whitebg">
-    {% if order[0] == "FATAL" %}
-        <p style="color: red">{{ warning }}</p>
-        <br>
-    {% else %}
-        <h2 style="color:black">Order of Classes</h2>
-        <table>
-            {% for course in order %}
-            <tr>
-                <td>{{ course }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-
-        {% if warning|length != 0 %}
-        <br>
-        <hr>
-        <br>
-        <h3 style="color: red">Some classes may seem out of order due to these warnings:</h3>
-            {% for lst in warning %}
-            <span style="display: block; margin-bottom: 3px"></span> 
-                {% for s in lst %}
-                    <p style="color: red; font-style: italic">
-                        {{ s }}
-                    </p>
-                    <span style="display: block; margin-bottom: 1px"></span> 
-                {% endfor %}
-            {% endfor %}
-        {% endif %}
-    {% endif %}
-
-    <br>
-    <hr>
-    <br>
-
-    <h3>About ZotPlanner</h3>
-    <p>
-        Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
-        <br><br>
-        ZotPlanner takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
-        <br><br>
-        The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
-        <br><br>
-        The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
-        <br><br>
-        The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
-    </p>
-    <!-- <p>Prerequisites can be confusing, and the goal of this project is to help students figure out 
-        the correct order in which they should enroll in their classes!<br><br>
-        ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current 
-        schoolyear or throughout your entire career.<br><br>
-        The user is then given an ordering of classes that they are able to take such that no 
-        prerequisites requirements are violated.<br><br>
-        The program also warns the user if they did not include a required prerequisite in their input.<br><br>
-        For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, 
-        the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
-    </p> -->
-
-    <br>
-    <hr>
-    <br>
-
-    <h3>Side Notes</h3>
-    <UL>
-        <LI>A class will be invalid if it is not in the <A href="https://catalogue.uci.edu/allcourses/">UCI Course Catalogue!</A></LI>
-        <LI>Questions/Bugs? Email: <A href="mailto:jzulfika@ics.uci.edu"> jzulfika@uci.edu</A></LI>
-    </UL>
-
-    <br>
-    <hr>
-    <br>
-
-    <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A>
-    <p><em>Developed by Julian Zulfikar, 2022</em></p>
-</div>
-
-{% endblock %}
+<body>
+    <div class="container">
+        <IMG src="../static/images/zotplannerlogo.png" 
+            alt="ZotPlanner"
+            height=10%
+            width=auto
+            class="center"/>
+        
+        <div class="graybg">
+            <h2>Actions</h2>
+            <a href="/">
+                <strong><em>Return Home</em></strong>
+            </a>
+        </div>
+        
+        <hr class="invis">
+        
+        <div class="whitebg">
+            {% if order[0] == "FATAL" %}
+                <p style="color: red">{{ warning }}</p>
+                <br>
+            {% else %}
+                <h2 style="color:black">Order of Classes</h2>
+                <table>
+                    {% for course in order %}
+                    <tr>
+                        <td>{{ course }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+        
+                {% if warning|length != 0 %}
+                <br>
+                <hr>
+                <br>
+                <h3 style="color: red">Some classes may seem out of order due to these warnings:</h3>
+                    {% for lst in warning %}
+                    <span style="display: block; margin-bottom: 3px"></span> 
+                        {% for s in lst %}
+                            <p style="color: red; font-style: italic">
+                                {{ s }}
+                            </p>
+                            <span style="display: block; margin-bottom: 1px"></span> 
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+            {% endif %}
+        
+            <br>
+            <hr>
+            <br>
+        
+            <h3>About ZotPlanner</h3>
+            <p>
+                Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
+                <br><br>
+                ZotPlanner takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
+                <br><br>
+                The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
+                <br><br>
+                The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
+                <br><br>
+                The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
+            </p>
+            <!-- <p>Prerequisites can be confusing, and the goal of this project is to help students figure out 
+                the correct order in which they should enroll in their classes!<br><br>
+                ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current 
+                schoolyear or throughout your entire career.<br><br>
+                The user is then given an ordering of classes that they are able to take such that no 
+                prerequisites requirements are violated.<br><br>
+                The program also warns the user if they did not include a required prerequisite in their input.<br><br>
+                For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, 
+                the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
+            </p> -->
+        
+            <br>
+            <hr>
+            <br>
+        
+            <h3>Side Notes</h3>
+            <UL>
+                <LI>A class will be invalid if it is not in the <A href="https://catalogue.uci.edu/allcourses/">UCI Course Catalogue!</A></LI>
+                <LI>Questions/Bugs? Email: <A href="mailto:jzulfika@ics.uci.edu"> jzulfika@uci.edu</A></LI>
+            </UL>
+        
+            <br>
+            <hr>
+            <br>
+        
+            <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A>
+            <p><em>Developed by Julian Zulfikar, 2022</em></p>
+        </div>
+    </div>
+</body>
+</html>
