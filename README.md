@@ -1,4 +1,4 @@
-![AntCheck]((https://github.com/julian-z/AntCheck/blob/main/static/images/antchecklogo.png))
+![AntCheck](https://github.com/julian-z/AntCheck/blob/main/static/images/antchecklogo.png)
 Created by Julian Zulfikar, December 2022.
 https://zotplanner.pythonanywhere.com/
 
