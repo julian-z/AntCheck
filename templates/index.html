@@ -18,7 +18,7 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item navbar-brand">
                 <a class="navbar-brand" href="/" style="font-weight: 700; color: rgb(224 225 221);">
-                    AntCheck 🔎
+                    <img alt="AntCheck" src="../static/images/antchecklogo.png" style="height: 5vh;">
                 </a>
             </li>
         </ul>
@@ -35,7 +35,7 @@
 
         <div id="blackout"></div>
         <div id="about">
-            <h1 style="margin: 1vh;">About AntCheck 🐜</h1>
+            <h1 style="margin: 1vh;">AntCheck 🐜</h1>
             <p>
                 Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
             </p><p>
@@ -58,7 +58,7 @@
         {% endif %}
 
         <div class="col-10">
-            <form action="/" method="POST">
+            <form action="/" method="POST" autocomplete="off">
                 <select class="dropdown search-btn" style="background-color: rgb(58, 68, 81);" data-trigger="" name="drop" id="drop">
                     <option placeholder="">Department</option>
                     <option>AC ENG</option>
@@ -232,7 +232,7 @@
         </div>
 
         <div class="col-10" style="margin-bottom: 10vh;">
-            <form action="/" method="POST">                    
+            <form action="/" method="POST" autocomplete="off">                    
                 <input id="search_courses" name="search_courses" type="text" placeholder="Search by title or description..." class="searchbar__input2 search-btn" style="background-color: rgb(58, 68, 81); width: 100%;" />
 
                 <form action="/" method="POST">

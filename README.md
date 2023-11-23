@@ -1,11 +1,11 @@
-![](https://github.com/julian-z/ZotPlanner/blob/main/static/images/zotplannerlogo.png)
+![AntCheck]((https://github.com/julian-z/AntCheck/blob/main/static/images/antchecklogo.png))
 Created by Julian Zulfikar, December 2022.
 https://zotplanner.pythonanywhere.com/
 
 # Purpose 📋
 Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
 
-ZotPlanner takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
+AntCheck takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
 
 The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
 
@@ -13,7 +13,12 @@ The program also warns the user if they did not include a required prerequisite 
 
 The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
 
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/zotplanner.gif)
+# Screenshots
+As of 11-23:
+![Home](https://github.com/julian-z/AntCheck/blob/main/images/1.png)
+![Home Functionalities](https://github.com/julian-z/AntCheck/blob/main/images/2.png)
+![Generate](https://github.com/julian-z/AntCheck/blob/main/images/3.png)
+![About](https://github.com/julian-z/AntCheck/blob/main/images/4.png)
 
 # How It Works 🧠
 The user inputs a set of classes they are looking to take. From there, a directed graph is initialized with edges representing courses that must be taken beforehand.
@@ -22,7 +27,7 @@ A topological sort is then performed on such graph, returning a sorted order of 
 
 To easily retrieve information on how classes are related to each other, the program stores an index keeping track of course titles, descriptions, prerequisites, etc. The search engine relies on an inverted index, which uses words/tokens as search keys instead of courses.
 
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/topologicalsort.gif)
+![](https://github.com/julian-z/AntCheck/blob/main/images/topologicalsort.gif)
 
 # Optimizations 🚀
 You may be wondering: if the graph of classes has to be formed on the fly, wouldn't the program be very slow & take a lot of API requests?
@@ -31,7 +36,7 @@ Previously, (prior to July 2023) the program used the PeterPortal API to find pr
 
 As of now, a web-crawler has been built which goes through every course page of each department. The data of each course is then collected, and thus, we quickly retrieve any information we need through an index.
 
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/runtime_comparison.png)
+![](https://github.com/julian-z/AntCheck/blob/main/images/runtime_comparison.png)
 
 # How To Use 💻
 Directions and sample input files are provided. Actively seeking for ways to optimize user experience.
@@ -44,11 +49,7 @@ As of 7-3-2023, a search engine implementation has been applied.
 
 As of 7-4-2023, ZotPlanner has been deployed for demonstration: https://zotplanner.pythonanywhere.com/
 
-7-4-2023 Screenshots:
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/1.png)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/2.png)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/3.png)
-![](https://github.com/julian-z/ZotPlanner/blob/main/images/4.png)
+As of 11-23-2023, ZotPlanner has been rebranded to AntCheck! Deployment will be coming soon.
 
 # Files 📁
 Each file is well-documented with summaries at the top.
@@ -66,4 +67,4 @@ search.py: query_catalogue() function, serves as algorithm for search engine
 app.py: Utilizes Flask framework for website implementation
 
 # Conclusion 👋
-Open to suggestions! Email me at jzulfika@uci.edu
+Open to suggestions, feel free to contact me whenever!

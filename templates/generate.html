@@ -2,20 +2,136 @@
 <html lang="en">
 
 <head>
-    <title>ZotPlanner</title>        
+    <title>AntCheck</title>        
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <link rev="Made" href="mailto:jzulfika@ics.uci.edu">
-    <meta name="person" content="Julian Zulfikar">
-    <meta name="sortname" content="Julian Zulfikar">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet"/>
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg sticky-top navbar-light">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item navbar-brand">
+                <a class="navbar-brand" href="/" style="font-weight: 700; color: rgb(224 225 221);">
+                    <img alt="AntCheck" src="../static/images/antchecklogo.png" style="height: 5vh;">
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="btn" style="color: rgb(224 225 221);" href="/">Home</a> |
+                <button id="showAbout" class="btn" style="color: rgb(224 225 221);">About</button> |
+                <a class="btn" style="color: rgb(224 225 221);" target="_blank" href="https://github.com/julian-z/AntCheck">GitHub</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="pg-container-col">
+
+        <div id="blackout"></div>
+        <div id="about">
+            <h1 style="margin: 1vh;">AntCheck 🐜</h1>
+            <p>
+                Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
+            </p><p>
+                AntCheck takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
+            </p><p>
+                The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
+            </p><p>
+                The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
+            </p><p>
+                The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
+            </p>
+            <button class="search-btn" id="closeAbout">Try It Out!</button>
+        </div>
+
+        <div class="col-10" style="margin: 5vh 5vw;">
+            <div class="box" style="padding: 5vh 5vw">
+                {% if order[0] == "FATAL" %}
+                    <p style="color: red">{{ warning }}</p>
+                    <br>
+                {% else %}
+                    <h1>Order of Classes 📜</h2>
+                    <table>
+                        {% for course in order %}
+                        <tr>
+                            <td>{{ course }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-10" style="margin: 5vh 5vw;">
+            <div class="box" style="padding: 5vh 5vw">
+                <h1>Explanation ❓</h1>
+                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                    <h2>
+                        A topological ordering has been created with the courses you provided!
+                        This ordering of classes is the correct way to take all of the listed 
+                        courses without violating prerequisites.
+                    </h2>
+                    <img src="../static/images/grad-eater-2.png" style="height: 30vh;">
+                </div>
+
+                {% if warning|length != 0 %}
+                <h3 style="color: red; font-weight: 500;">Some classes may seem out of order due to these warnings:</h3>
+                {% for lst in warning %}
+                    {% for s in lst %}
+                        {% set is_even = loop.index is even %}
+                        <h4 style="color: red; font-style: {{ 'italic' if is_even else 'normal' }}; font-weight: {{ '400' if is_even else '500' }}">
+                            {{ s }}
+                        </h4>
+                    {% endfor %}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section Toggle -->
+    <script>
+        let showingAbout = false;
+        const aboutButton = document.getElementById('showAbout');
+        const closeAbout = document.getElementById('closeAbout');
+        const blackout = document.getElementById('blackout');
+        const aboutSection = document.getElementById('about');
+
+        aboutButton.addEventListener('click', () => {
+            if (!showingAbout) {
+                blackout.style.display = 'block';
+                aboutSection.style.display = 'block';
+            }
+            else {
+                blackout.style.display = 'none';
+                aboutSection.style.display = 'none';
+            }
+            showingAbout = !showingAbout;
+        });
+
+        blackout.addEventListener('click', () => {
+            blackout.style.display = 'none';
+            aboutSection.style.display = 'none';
+            showingAbout = false;
+        });
+
+        closeAbout.addEventListener('click', () => {
+            blackout.style.display = 'none';
+            aboutSection.style.display = 'none';
+            showingAbout = false;
+        });
+    </script>
+</body>
+
+</html>
+
+<!-- <body>
     <div class="container">
         <IMG src="../static/images/zotplannerlogo.png" 
             alt="ZotPlanner"
@@ -79,16 +195,6 @@
                 <br><br>
                 The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
             </p>
-            <!-- <p>Prerequisites can be confusing, and the goal of this project is to help students figure out 
-                the correct order in which they should enroll in their classes!<br><br>
-                ZotPlanner takes a given set of UCI classes that you intend to take; could be in the current 
-                schoolyear or throughout your entire career.<br><br>
-                The user is then given an ordering of classes that they are able to take such that no 
-                prerequisites requirements are violated.<br><br>
-                The program also warns the user if they did not include a required prerequisite in their input.<br><br>
-                For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, 
-                the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
-            </p> -->
         
             <br>
             <hr>
@@ -109,4 +215,4 @@
         </div>
     </div>
 </body>
-</html>
+</html> -->

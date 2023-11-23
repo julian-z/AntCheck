@@ -158,7 +158,7 @@ tr {
 	font-size: 1.1rem;
 }
 
-h1, h2, h3 {
+h1, h2, h3, h4 {
 	text-align: center;
 }
 
@@ -196,25 +196,22 @@ footer {
 	z-index: 999;
 
 	opacity: 0;
-	display: none;
 	animation-name: fade-error;
 	animation-duration: 5s;
+	animation-fill-mode: forwards;
 }
 
 @keyframes fade-error {
 	0% {
 		opacity: 1;
-		display: block;
 	}
 	50% {
 		opacity: 0.9;
 		transform: translateY(0);
-		display: block;
 	}
 	100% {
 		opacity: 0;
 		transform: translateY(-50vh);
-		display: block;
 	}
 }
 
@@ -237,6 +234,8 @@ footer {
 	z-index: 999;
 
 	display: none;
+
+	overflow-y: auto;
 }
 
 #blackout {
