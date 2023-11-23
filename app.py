@@ -28,7 +28,7 @@ def index():
             if (len(course_num) == 0) or (not course_num[0].isnumeric()):
                 return render_template('index.html', search_results=[], courses=COURSE_LIST, titles=COURSE_TITLES, errormsg="Error adding class.")
 
-            if (dept+course_num not in COURSE_LIST) and valid_class(dept+' '+course_num):
+            if (dept+' '+course_num not in COURSE_LIST) and valid_class(dept+' '+course_num):
                 COURSE_LIST.append(dept+' '+course_num)
                 COURSE_TITLES.append(DATA_INDEX[COURSE_LIST[-1]][1])
             else:
@@ -40,7 +40,7 @@ def index():
             
             search_results = []
             for i, course in enumerate(query_catalogue(query)):
-                if i >= 20:
+                if i >= 100:
                     break
                 search_results.append((course, DATA_INDEX[course][1], DATA_INDEX[course][2], DATA_INDEX[course][3]))
 
