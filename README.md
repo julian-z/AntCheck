@@ -1,6 +1,6 @@
 ![AntCheck](https://github.com/julian-z/AntCheck/blob/main/static/images/antchecklogo.png)
 Created by Julian Zulfikar, December 2022.
-https://zotplanner.pythonanywhere.com/
+https://antcheck.pythonanywhere.com/
 
 # Purpose 📋
 Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
