@@ -121,6 +121,20 @@ form {
 	font-size: 1rem;
 }
 
+tr, td {
+	width: 90vw;
+}
+
+.result-course .result-desc {
+	font-size: 0;
+	font-style: italic;
+	transition: font-size 0.5s ease-in-out;
+}
+
+.result-course:hover .result-desc {
+	font-size: 0.75rem;
+}
+
 a:hover {
 	text-decoration: none;
 	color: white;
@@ -154,7 +168,7 @@ tr {
 	border-radius: 1vw;
 	min-width: 10vw;
 	text-align: center;
-	box-shadow: 0 0 30px rgb(13 27 42);
+	/* box-shadow: 0 0 30px rgb(13 27 42); */
 	font-size: 1.1rem;
 }
 
@@ -227,7 +241,7 @@ footer {
 	padding: 5vh 5vw;
 	text-align: center;
 	font-weight: 700;
-	width: 75%;
+	width: 90%;
 
 	position: fixed;
 	top: 15vh;
@@ -247,4 +261,69 @@ footer {
 	top: 0;
 
 	display: none;
+}
+
+#mobile-dropdown {
+	display: none;
+}
+
+#mobile-nav {
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	position: fixed;
+	top: -180vh;
+	right: 20vw;
+
+	background-color: rgb(46, 64, 99);
+	padding: 1vw;
+	border-color: rgb(0, 0, 0);
+	border-width: 0.5vw;
+	border-style: solid;
+
+	opacity: 0;
+	transition: opacity 0.4s ease-in-out, top 0.4s ease-in-out;
+
+	z-index: 1001;
+
+	padding-top: 100vh;
+}
+
+#mobile-nav.showing {
+	top: -99vh;
+	opacity: 1;
+}
+
+.flex-row {
+	display: flex; 
+	flex-direction: row; 
+	justify-content: center; 
+	align-items: center;
+}
+
+@media (max-width: 1024px) {
+	#desktop-nav {
+		display: none;
+	}
+
+	#mobile-nav, #mobile-dropdown {
+		display: flex;
+	}
+
+	.flex-row {
+		display: flex; 
+		flex-direction: column !important; 
+		justify-content: center; 
+		align-items: center;
+	}
+
+	#about {
+		font-size: 0.75rem;
+	}
+
+	#about h1 {
+		font-size: 1rem;
+	}
 }

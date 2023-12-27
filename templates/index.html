@@ -22,13 +22,23 @@
                 </a>
             </li>
         </ul>
-        <ul class="navbar-nav navbar-right">
+
+        <ul class="navbar-nav navbar-right" id="desktop-nav">
             <li class="nav-item">
                 <a class="btn" style="color: rgb(224 225 221);" href="/">Home</a> |
                 <button id="showAbout" class="btn" style="color: rgb(224 225 221);">About</button> |
                 <a class="btn" style="color: rgb(224 225 221);" target="_blank" href="https://github.com/julian-z/AntCheck">GitHub</a>
             </li>
         </ul>
+
+        <button style="background-color: rgba(0, 0, 0, 0); border-style: none;" id="mobile-dropdown">
+            <img alt="Menu" src="../static/images/dropdown.png" style="width: 10vw;">
+        </button>
+        <div id="mobile-nav">
+            <a class="btn" style="color: rgb(224 225 221);" href="/">Home</a>
+            <button id="showAbout2" class="btn" style="color: rgb(224 225 221);">About</button>
+            <a class="btn" style="color: rgb(224 225 221);" target="_blank" href="https://github.com/julian-z/AntCheck">GitHub</a>
+        </div>
     </nav>
 
     <div class="pg-container-col">
@@ -44,9 +54,10 @@
                 The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
             </p><p>
                 The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
-            </p><p>
-                The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
             </p>
+            <!-- <p>
+                The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
+            </p> -->
             <button class="search-btn" id="closeAbout">Try It Out!</button>
         </div>
 
@@ -57,7 +68,7 @@
         </div>
         {% endif %}
 
-        <div class="col-10">
+        <div class="col-12">
             <form action="/" method="POST" autocomplete="off">
                 <select class="dropdown search-btn" style="background-color: rgb(58, 68, 81);" data-trigger="" name="drop" id="drop">
                     <option placeholder="">Department</option>
@@ -213,7 +224,7 @@
                     </div>
                 {% else %}
                     <h1 style="margin: 1vh 0;">No Classes Added Yet 🐜</h1>
-                    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                    <div class="flex-row">
                         <div>
                             <h2 style="text-align: center; margin-bottom: 3vh;">
                                 Use the search bar to find classes that you are planning to take!
@@ -231,7 +242,7 @@
             </div>
         </div>
 
-        <div class="col-10" style="margin-bottom: 10vh;">
+        <div class="col-12" style="margin-bottom: 10vh;">
             <form action="/" method="POST" autocomplete="off">                    
                 <input id="search_courses" name="search_courses" type="text" placeholder="Search by title or description..." class="searchbar__input2 search-btn" style="background-color: rgb(58, 68, 81); width: 100%;" />
 
@@ -246,24 +257,30 @@
                 <table>
                     <tr>
                         <th>Course</th>
-                        <th>Description</th>
-                        <th>Prerequisites</th>
+                        <!-- <th>Description</th>
+                        <th>Prerequisites</th> -->
                     </tr>
                     {% for course in search_results %}
                     <tr>
-                        <td><strong>{{ course[0] }}</strong> - <em>{{ course[1] }}</em></td>
-                        <td>{{ course[2] }}</td>
+                        <td class="result-course">
+                            <strong>{{ course[0] }}</strong> - <em>{{ course[1] }}</em>
+
+                            <div class="result-desc">
+                                {{ course[2] }}
+                            </div>
+                        </td>
+                        <!-- <td>{{ course[2] }}</td>
                         {% if course[3]|length > 0 %}
                             <td>{{ course[3] }}</td>
                         {% else %}
                             <td>N/A</td>
-                        {% endif %}
+                        {% endif %} -->
                     </tr>
                     {% endfor %}
                 </table>
                 {% else %}
                 <h1 style="margin: 1vh 0;">Search the Catalogue 📖</h1>
-                <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;">
+                <div class="flex-row">
                     <img src="../static/images/cheering-anteaters.png" style="height: 30vh;">
                     <div>
                         <h2 style="margin-bottom: 3vh;">Use the search bar above to browse UCI's course catalogue!</h2>
@@ -275,7 +292,27 @@
         </div>
     </div>
 
-    <!-- About Section Toggle -->
+    <!-- Mobile Dropdown -->
+    <script>
+        let showingDropdown = false;
+        const mobileDropdownButton = document.getElementById('mobile-dropdown');
+        const mobileDropdownContent = document.getElementById('mobile-nav');
+
+        mobileDropdownButton.addEventListener('click', () => {
+            showingDropdown = !showingDropdown
+
+            if (showingDropdown) {
+                mobileDropdownButton.innerHTML = '<img alt="Menu" src="../static/images/close-dropdown.png" style="width: 10vw;">';
+                mobileDropdownContent.classList.add('showing');
+            }
+            else {
+                mobileDropdownButton.innerHTML = '<img alt="Menu" src="../static/images/dropdown.png" style="width: 10vw;">';
+                mobileDropdownContent.classList.remove('showing');
+            }
+        })
+    </script>
+
+    <!-- About Section Toggle (Desktop) -->
     <script>
         let showingAbout = false;
         const aboutButton = document.getElementById('showAbout');
@@ -308,273 +345,24 @@
         });
     </script>
 
+    <!-- About Section Toggle (Mobile) -->
+    <script>
+        const aboutButton2 = document.getElementById('showAbout2');
+        aboutButton2.addEventListener('click', () => {
+            if (!showingAbout) {
+                blackout.style.display = 'block';
+                aboutSection.style.display = 'block';
+            }
+            else {
+                blackout.style.display = 'none';
+                aboutSection.style.display = 'none';
+            }
+            showingAbout = !showingAbout;
+        });
+    </script>
+
     <!-- <footer>
         <p class="text-center"><em>🖥️ Developed by Julian Zulfikar, 2022</em></p>
     </footer> -->
-
-    <!-- <div class="container">
-        <IMG src="../static/images/zotplannerlogo.png" 
-            alt="ZotPlanner"
-            height=10%
-            width=auto
-            class="center"/>
-
-        <div class="tanbg">
-            <form action="/" method="POST">
-                <div style="float:left;width:50px">
-                <select class="dropdown" data-trigger="" name="drop" id="drop">
-                    <option placeholder="">Department</option>
-                    <option>AC ENG</option>
-                    <option>AFAM</option>
-                    <option>ANTHRO</option>
-                    <option>ARABIC</option>
-                    <option>ARMN</option>
-                    <option>ART</option>
-                    <option>ART HIS</option>
-                    <option>ART STU</option>
-                    <option>ARTS</option>
-                    <option>ARTSHUM</option>
-                    <option>ASIANAM</option>
-                    <option>BANA</option>
-                    <option>BIO SCI</option>
-                    <option>BME</option>
-                    <option>BSEMD</option>
-                    <option>CBE</option>
-                    <option>CBEMS</option>
-                    <option>CHC/LAT</option>
-                    <option>CHEM</option>
-                    <option>CHINESE</option>
-                    <option>CLASSIC</option>
-                    <option>CLT&THY</option>
-                    <option>COGS</option>
-                    <option>COM LIT</option>
-                    <option>COMPSCI</option>
-                    <option>CRITISM</option>
-                    <option>CRM/LAW</option>
-                    <option>CSE</option>
-                    <option>DANCE</option>
-                    <option>DATA</option>
-                    <option>DEV BIO</option>
-                    <option>DRAMA</option>
-                    <option>E ASIAN</option>
-                    <option>EARTHSS</option>
-                    <option>EAS</option>
-                    <option>ECO EVO</option>
-                    <option>ECON</option>
-                    <option>ECPS</option>
-                    <option>EDUC</option>
-                    <option>EECS</option>
-                    <option>EHS</option>
-                    <option>ENGLISH</option>
-                    <option>ENGR</option>
-                    <option>ENGRCEE</option>
-                    <option>ENGRMAE</option>
-                    <option>ENGRMSE</option>
-                    <option>ENVIRON</option>
-                    <option>EPIDEM</option>
-                    <option>EURO ST</option>
-                    <option>FILMSTD</option>
-                    <option>FIN</option>
-                    <option>FLM&MDA</option>
-                    <option>FRENCH</option>
-                    <option>GDIM</option>
-                    <option>GEN&SEX</option>
-                    <option>GERMAN</option>
-                    <option>GLBLCLT</option>
-                    <option>GREEK</option>
-                    <option>HEBREW</option>
-                    <option>HINDI</option>
-                    <option>HISTORY</option>
-                    <option>HUMAN</option>
-                    <option>HUMARTS</option>
-                    <option>I&C SCI</option>
-                    <option>IN4MATX</option>
-                    <option>INNO</option>
-                    <option>INTL ST</option>
-                    <option>ITALIAN</option>
-                    <option>JAPANSE</option>
-                    <option>KOREAN</option>
-                    <option>LATIN</option>
-                    <option>LAW</option>
-                    <option>LINGUIS</option>
-                    <option>LIT JRN</option>
-                    <option>LPS</option>
-                    <option>LSCI</option>
-                    <option>MATH</option>
-                    <option>MED HUM</option>
-                    <option>MGMT</option>
-                    <option>MGMT EP</option>
-                    <option>MGMT FE</option>
-                    <option>MGMTMBA</option>
-                    <option>MOL BIO</option>
-                    <option>MPAC</option>
-                    <option>MSE</option>
-                    <option>MUSIC</option>
-                    <option>NET SYS</option>
-                    <option>NEURBIO</option>
-                    <option>NUR SCI</option>
-                    <option>PATH</option>
-                    <option>PERSIAN</option>
-                    <option>PHILOS</option>
-                    <option>PHMD</option>
-                    <option>PHRMSCI</option>
-                    <option>PHY SCI</option>
-                    <option>PHYSICS</option>
-                    <option>PHYSIO</option>
-                    <option>POL SCI</option>
-                    <option>PORTUG</option>
-                    <option>PP&D</option>
-                    <option>PSCI</option>
-                    <option>PSY BEH</option>
-                    <option>PSYCH</option>
-                    <option>PUBHLTH</option>
-                    <option>REL STD</option>
-                    <option>ROTC</option>
-                    <option>RUSSIAN</option>
-                    <option>SOC SCI</option>
-                    <option>SOCECOL</option>
-                    <option>SOCIOL</option>
-                    <option>SPANISH</option>
-                    <option>SPPS</option>
-                    <option>STATS</option>
-                    <option>TOX</option>
-                    <option>UCDC</option>
-                    <option>UNI STU</option>
-                    <option>UPPP</option>
-                    <option>VIETMSE</option>
-                    <option>WOMN ST</option>
-                    <option>WRITING</option>
-                </select>
-                </div>
-                
-                <div style="margin:0 auto;width:500px;">
-                    <div class="searchbar">
-                        <input id="course_num" name="course_num" type="text" placeholder="Course Number" class="searchbar__input" />
-                    </div>
-                </div>
-
-                <div style="float:right; width:150px; position:relative; bottom:40px; left:30px">
-                    <form action="/" method="POST">
-                        <button class="addButton" type="submit"><strong><em>Add Course</em></strong></button>
-                    </form>
-                </div>
-            </form>
-        </div>
-
-        <hr class="invis">
-
-        <div class="greenbg">
-            <form action="/" method="POST">
-                <div style="float:left;width:50px">
-                </div>
-                
-                <div style="margin:0 auto;width:655px; position:relative; left:-80px">
-                    <div class="searchbar2">
-                        <input id="search_courses" name="search_courses" type="text" placeholder="Search the course catalogue..." class="searchbar__input2" />
-                    </div>
-                </div>
-
-                <div style="float:right; width:150px; position:relative; bottom:40px; left:30px">
-                    <form action="/" method="POST">
-                        <button class="searchButton" type="submit"><strong><em>Search</em></strong></button>
-                    </form>
-                </div>
-            </form>
-        </div>
-
-        <hr class="invis">
-
-        <div class="whitebg">
-            {% if errormsg != "" %}
-                <p style="color: red">{{ errormsg }}</p>
-                <br>
-            {% endif %}
-
-            {% if search_results|length > 0 %}
-            <h2 style="color:black">Search Results (Top 20)</h2>
-            <hr class="invis">
-            <table>
-                <tr>
-                    <th>Course</th>
-                    <th>Description</th>
-                    <th>Prerequisites</th>
-                </tr>
-                {% for course in search_results %}
-                <tr>
-                    <td><strong>{{ course[0] }}</strong> - <em>{{ course[1] }}</em></td>
-                    <td style="font-size: 14px;">{{ course[2] }}</td>
-                    {% if course[3]|length > 0 %}
-                        <td style="font-size: 14px;">{{ course[3] }}</td>
-                    {% else %}
-                        <td style="font-size: 14px;">N/A</td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </table>
-            
-            <br>
-            <hr>
-            <br>
-            {% endif %}
-
-            {% if courses|length > 0 %}
-            <h2 style="color:black">Added Classes</h2>
-
-            <a href="/generate">
-                <strong><em>Generate Order</em></strong>
-            </a>
-            <br>
-            <a href="/clear">
-                <strong><em>Clear Courses</em></strong>
-            </a>
-            <p></p>
-
-            <table>
-                <tr>
-                    <th>Course</th>
-                </tr>
-                {% for course in courses %}
-                <tr>
-                    <td><strong>{{ courses[loop.index0] }}</strong> - {{ titles[loop.index0] }}</td>
-                </tr>
-                {% endfor %}
-            </table>
-
-            <br>
-            <hr>
-            <br>
-            {% endif %}
-
-            <h3>About ZotPlanner</h3>
-            <p>
-                Courses and prerequisites can be very overwhelming for students, which is why the goal of this project is to provide an improved user experience when it comes to browsing the catalogue and selecting the correct order in which they should enroll in their classes!
-                <br><br>
-                ZotPlanner takes a given set of UCI classes that you intend to take -- could be in the current schoolyear or throughout your entire career.
-                <br><br>
-                The user is then given an ordering of classes that they are able to take such that no prerequisites requirements are violated.
-                <br><br>
-                The program also warns the user if they did not include a required prerequisite in their input. For example, if a student is looking to take CS 161 and they input {ICS 46, ICS 6D, CS 161}, the program would warn them of 161's ICS 6B & Math 2B requirement. You'll never miss a prerequisite again!
-                <br><br>
-                The search engine also provides a swift and easy way for students to browse through UCI's catalogue of over 5900 classes. The results are ranked in order of relevancy by TF-IDF score.
-            </p>
-
-            <br>
-            <hr>
-            <br>
-
-            <h3>Side Notes</h3>
-            <UL>
-                <LI>A class will be invalid if it is not in the <A href="https://catalogue.uci.edu/allcourses/">UCI Course Catalogue!</A></LI>
-                <LI>Questions/Bugs? Email: <A href="mailto:jzulfika@ics.uci.edu"> jzulfika@uci.edu</A></LI>
-            </UL>
-
-            <br>
-            <hr>
-            <br>
-
-            <A href="https://github.com/julian-z/ZotPlanner"> <IMG src="../static/images/sm_github.png" height="15", width="15", alt="GitHub", style="padding-right:10px"/>GitHub Repo</A>
-            <p><em>Developed by Julian Zulfikar, 2022</em></p>
-        </div>
-    </div> -->
 </body>
 </html>
